@@ -1,0 +1,268 @@
+/* ====== コンテナ ====== */
+.bgm-free__inner { max-width: 1120px; margin: 0 auto; padding: 24px; }
+.bgm-free__heading{
+  font-size: clamp(1.75rem, 2.2vw + 1rem, 2.5rem);
+  margin: 0 0 1rem;
+}
+
+/* ====== 見出し行（タイトル＋右ピル） ====== */
+.bgm-free__headrow {
+  display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+  margin: 0 0 .75rem;
+}
+
+/* ====== 世界観カード ====== */
+.bgm-free__worlds{ margin: 0 0 1.25rem; }
+.bgm-free__worlds-strip{
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  padding: .5rem .25rem 1rem;
+  scroll-snap-type: x mandatory;
+}
+.bgm-world{
+  flex: 0 0 320px;               /* SP：横スワイプ */
+  background: rgba(255,255,255,.88);
+  border: 1px solid #e6d9b7;     /* 淡い金色の縁 */
+  border-radius: 12px;
+  padding: 1rem;
+  scroll-snap-align: start;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04);
+}
+.bgm-world__thumb img { width: 100%; height: auto; border-radius: 12px; display: block; }
+.bgm-world__title{ margin: 0 0 .5rem; font-weight: 700;
+  font-size: clamp(1.3rem, 1.1vw + 1rem, 1.8rem); line-height: 1.4; color:#0d2336;
+}
+.bgm-world__story{
+  font-size: clamp(1.05rem, .5vw + .95rem, 1.25rem);
+  line-height: 1.9; margin: .25rem 0 .9rem; color:#0d2336;
+}
+.bgm-world__cta { display: flex; gap: 8px; flex-wrap: wrap; }
+
+/* PCでは2列グリッド表示 */
+@media (min-width: 1024px){
+  .bgm-free__worlds-strip{
+    overflow: visible;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(360px,1fr));
+    gap: 1rem;
+  }
+  .bgm-world{ flex: 1 1 auto; }
+}
+
+/* ====== フィルタ ====== */
+.bgm-filter { display: grid; gap: 10px; margin-bottom: 12px; }
+.bgm-filter__search { display: grid; }
+.bgm-input { padding: .75rem 1rem; border: 1px solid rgba(0,0,0,.15); border-radius: 10px; font-size: 1em; }
+.bgm-filter__chips { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.bgm-filter__label { font-size: .9rem; color: #555; }
+
+.bgm-chip{
+  font-size: .95em;
+  padding: .4rem .75rem;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.2);
+  background: #fff; cursor: pointer;
+}
+.bgm-chip.is-active, .bgm-chip:focus { outline: none; border-color: #111; box-shadow: inset 0 0 0 2px #0d2336; }
+
+/* ====== テーブル ====== */
+.bgm-table-wrap{
+  width: 100%; overflow-x: auto;
+  background: rgba(255,255,255,.95);
+  border: 1px solid #e6d9b7; border-radius: 12px;
+}
+.bgm-table { width: 100%; border-collapse: collapse; }
+
+.bgm-table th, .bgm-table td{ padding: 1rem .95rem; }
+.bgm-table thead th{
+  text-align: left; white-space: nowrap;
+  background: rgba(13,35,54,.10); color:#0d2336;
+  font-weight: 700; border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.bgm-table td{
+  border-bottom: 1px solid rgba(0,0,0,.06); vertical-align: middle;
+}
+.bgm-tag{
+  display: inline-block; margin-right: .25rem; padding: .2rem .55rem;
+  background:#f2f4f7; border-radius: 8px; font-size: .95em; color:#0d2336;
+}
+
+/* 2列目（試聴）の最小幅を確保 */
+.bgm-table th:nth-child(2),
+.bgm-table td:nth-child(2){ width: 260px; }
+
+/* セット／ダウンロード列を中央寄せ */
+.bgm-table th:nth-child(8),
+.bgm-table td[data-label="セット"],
+.bgm-table th:nth-child(9),
+.bgm-table td[data-label="ダウンロード"]{
+  text-align: center;
+}
+
+/* リンク自体もセル内中央に */
+.bgm-table td[data-label="セット"] .bgm-link--btn,
+.bgm-table td[data-label="ダウンロード"] .bgm-link--btn{
+  margin: 0 auto; display: inline-flex;
+}
+
+/* スマホでカード化 */
+@media (max-width: 720px) {
+  .bgm-table thead { display: none; }
+  .bgm-table tr {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 6px 10px; padding: 10px;
+  }
+  .bgm-table td { border: none; padding: 4px 0; }
+  .bgm-table td[data-label]::before {
+    content: attr(data-label) "："; color: #666; display: inline-block; min-width: 5em;
+  }
+  .bgm-table td:first-child { grid-column: 1 / -1; } /* タイトルは横幅優先 */
+}
+
+/* SPの情報量調整：優先度の低い列は隠す */
+@media (max-width: 768px){
+  .bgm-table th:nth-child(5), .bgm-table td:nth-child(5), /* 尺 */
+  .bgm-table th:nth-child(6), .bgm-table td:nth-child(6), /* BPM */
+  .bgm-table th:nth-child(8), .bgm-table td:nth-child(8)  /* セット */
+  { display: none; }
+}
+
+/* ====== ボタン（世界観CTA／セット／MP3） ====== */
+.bgm-btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.5rem;
+  padding:.75rem 1.25rem; font-size: 1.05rem; font-weight: 700;
+  border-radius: 999px; background:#0d2336; color:#D4AF37; text-decoration:none;
+  box-shadow: 0 0 0 2px #e6d9b7 inset;
+}
+.bgm-btn:hover{ filter:brightness(1.06); transform:translateY(-1px); }
+.bgm-btn:active{ transform:none; }
+.bgm-btn--ghost{
+  background: transparent; color:#0d2336;
+  box-shadow: 0 0 0 2px #0d2336 inset;
+}
+
+.bgm-link--btn,
+.bgm-link--btn--ghost{
+  display: inline-flex; align-items: center; justify-content: center;
+  min-width: 8ch; text-align: center; line-height:1;
+  padding: .7rem 1.25rem; border-radius: 999px; font-weight:700; text-decoration:none;
+}
+.bgm-link--btn{ background:#0d2336; color:#D4AF37 !important; box-shadow: 0 0 0 2px #e6d9b7 inset; }
+.bgm-link--btn:hover{ filter: brightness(1.06); }
+.bgm-link--btn--ghost{
+  background: transparent; color:#0d2336; box-shadow: 0 0 0 2px #0d2336 inset;
+}
+.bgm-link--btn--ghost:hover{ filter: brightness(1.02); }
+
+/* 行ホバー時に右端2列のボタンだけ控えめに強調 */
+.bgm-table tbody tr:hover td:last-child a,
+.bgm-table tbody tr:hover td:nth-last-child(2) a{
+  filter: brightness(1.08); transform: translateY(-1px);
+}
+
+/* ====== Now Playing Bar ====== */
+.bgm-nowplaying { position: fixed; inset-block-end: 0; inset-inline: 0; background: #fff; border-top: 1px solid rgba(0,0,0,.1); z-index: 50; }
+.bgm-nowplaying[hidden] { display: none !important; }
+.bgm-nowplaying__inner {
+  max-width: 1120px; margin: 0 auto; padding: 10px 16px; display: flex; gap: 10px; align-items: center;
+}
+#bgm-now-title { font-weight: 600; margin-right: auto; }
+
+/* ====== タイポ＆色（このセクション内だけ濃く固定） ====== */
+.bgm-free{ font-size: 1.125rem; line-height: 1.9; }
+@media (min-width: 768px){ .bgm-free{ font-size: 1.2rem; } }
+
+.bgm-free,
+.bgm-free .bgm-table,
+.bgm-free .bgm-table th,
+.bgm-free .bgm-table td,
+.bgm-free label { color: #0d2336; }
+.bgm-input::placeholder { color:#6e7a88; opacity:1; }
+
+/* ====== A11y（スコープ付きに変更：他セクションへ影響しない） ====== */
+.bgm-free .visually-hidden {
+  position: absolute !important; height: 1px; width: 1px; overflow: hidden;
+  clip: rect(1px,1px,1px,1px); white-space: nowrap;
+}
+
+/* ====== 見出し右「利用規約・FAQ」ピル & ポップオーバー ====== */
+.bgm-terms--inline { position: relative; }
+.bgm-terms__pill {
+  list-style: none; cursor: pointer; display: inline-flex; align-items: center; gap: .5rem;
+  padding: .45rem .8rem; border-radius: 999px;
+  border: 1px solid #ffeb9c; color: #ffeb9c; background: rgba(12,28,51,.15);
+}
+.bgm-terms__pill::-webkit-details-marker { display: none; }
+.bgm-terms__pill::after {
+  content:""; width:.45rem; height:.45rem;
+  border-right:2px solid currentColor; border-bottom:2px solid currentColor;
+  transform: rotate(45deg); margin-left: .25rem; transition: transform .2s ease;
+}
+.bgm-terms--inline[open] .bgm-terms__pill::after { transform: rotate(-135deg); }
+
+.bgm-terms__popover {
+  position: absolute; right: 0; top: calc(100% + .4rem);
+  width: min(560px, 90vw);
+  border: 1px solid #20324d; border-radius: 14px;
+  background: linear-gradient(0deg, rgba(12,28,51,.92), rgba(12,28,51,.92));
+  padding: .8rem .9rem; box-shadow: 0 10px 24px rgba(0,0,0,.25); z-index: 20;
+}
+.bgm-terms__points { margin: .1rem 0 .7rem; padding-left: 1.1rem; color: #e8eef9; }
+.bgm-terms__points li { margin: .2rem 0; }
+.bgm-terms__links { display: flex; flex-wrap: wrap; gap: .5rem; }
+.bgm-terms__links .button--ghost {
+  border: 1px solid #ffeb9c; color: #ffeb9c; background: transparent; border-radius: 10px; padding: .42rem .75rem;
+}
+.bgm-terms__links .button--ghost:hover { background: rgba(255,235,156,.08); }
+
+/* SP：縦積み＆自然展開（他と合わせて 720px に統一） */
+@media (max-width: 720px) {
+  .bgm-free__headrow { flex-direction: column; align-items: flex-start; gap: .5rem; }
+  .bgm-terms__popover { position: static; width: 100%; margin-top: .35rem; }
+}
+
+
+/* === 見出し右ピル：視認性UP（ガラス白＋濃紺文字） ================== */
+.bgm-terms__pill{
+  color:#0d2336;                     /* 濃紺テキスト（金文字→読みやすい紺へ） */
+  background: rgba(255,255,255,.82); /* うっすら白で背景柄を抑える */
+  border-color:#e6d9b7;              /* 淡い金縁は維持 */
+  font-weight:700;
+  padding:.55rem 1rem;
+}
+.bgm-terms__pill:hover{ background: rgba(12,28,51,.08); }
+.bgm-terms__pill::after{ border-color:#0d2336; }  /* 矢印も紺でコントラスト確保 */
+
+/* ？アイコン（小さく主張しすぎない） */
+.bgm-terms__icon{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:1.05rem; height:1.05rem; border-radius:50%;
+  border:2px solid #0d2336; font:700 .75rem/1 system-ui, -apple-system, "Segoe UI", sans-serif;
+  margin-right:.35rem;
+}
+
+/* ピル内の“要点一行”はPCのみ表示（SPは詰まるので非表示） */
+.bgm-terms__meta{
+  margin-left:.5rem; max-width:36ch; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  font-weight:600; font-size:.9rem; color:#0d2336; opacity:.8;
+}
+@media (max-width: 1024px){ .bgm-terms__meta{ display:none; } }
+
+/* ポップオーバー内のダイジェスト＋詳細リンク */
+.bgm-terms__digest{ font-size:.9rem; color:#e8eef9; opacity:.95; margin:.2rem 0 .6rem; }
+.bgm-terms__digest a{ color:#ffeb9c; text-decoration:underline; }
+
+
+
+/* F＆Q　閉じ方がわかるように追記 */
+.bgm-terms__popover{ position: absolute; } /* 既存に合流 */
+.bgm-terms__close{
+  position:absolute; top:.45rem; right:.5rem;
+  width:1.75rem; height:1.75rem; border-radius:999px;
+  background:transparent; border:1px solid #ffeb9c; color:#ffeb9c;
+  line-height:1; font-weight:700; cursor:pointer;
+}
+.bgm-terms__close:hover{ background:rgba(255,235,156,.12); }
+.bgm-terms__close:focus{ outline:2px solid #ffeb9c; outline-offset:2px; }
+
+

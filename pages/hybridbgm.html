@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>無料BGMライブラリ – 妖孽奇譚 公式サイト</title>
+  <meta name="description" content="TRPGやマダミスで使える無料BGM。和風（平安）・現代の世界観別にフィルタ・試聴・ダウンロードできます。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/hero-heian.css">
+  <link rel="stylesheet" href="../css/bgm-free-hybrid.css">
+  <style>
+    :root { --font-body-family: 'Noto Serif JP', serif; --color-foreground: 18,18,18; --font-body-scale: 1.0; }
+    *, *::before, *::after { box-sizing: inherit; }
+    html { box-sizing: border-box; font-size: calc(var(--font-body-scale) * 62.5%); }
+    body { min-height: 100vh; margin: 0; font-size: 1.5rem; font-family: var(--font-body-family);
+      color: rgba(var(--color-foreground), 0.75);
+      background: url("../assets/images/washi-texture2.webp") center/600px repeat; }
+    @media screen and (min-width: 750px) { body { font-size: 1.6rem; } }
+    .footer { margin-top: 75px; text-align: center; padding: 1rem; }
+    .footer a { color: rgba(var(--color-foreground), .5); text-decoration: none; font-size: .85rem; }
+    .bgm-btn--disabled { pointer-events: none; cursor: not-allowed; opacity: .8; text-decoration: none; }
+  </style>
+</head>
+<body>
+  <header class="header-heian" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="header-logo"></a>
+      <div class="header-title">彩月のマーダーミステリー出版</div>
+      <div class="header-actions">
+        <a href="../index.html"><span aria-hidden="true">🏠</span><span class="nav-label">ホーム</span></a>
+        <button class="burger" aria-label="メニューを開く" aria-controls="site-drawer" aria-expanded="false" type="button">
+          <span aria-hidden="true">≡</span><span class="nav-label">メニュー</span>
+        </button>
+      </div>
+    </div>
+    <div class="drawer" id="site-drawer">
+      <button class="drawer-close" aria-label="閉じる" type="button">✕</button>
+      <nav><ul class="drawer-nav">
+        <li><a href="about.html" class="drawer-link">著者紹介</a></li>
+        <li><a href="hybridbgm.html" class="drawer-link">無料BGMライブラリ</a></li>
+        <li><a href="undamesi.html" class="drawer-link">妖孽奇譚おみくじ</a></li>
+        <li><a href="frontpage.html" class="drawer-link">妖孽奇譚シリーズ一覧</a></li>
+        <li><a href="blockgame.html" class="drawer-link">和風ブロック崩し</a></li>
+        <li><a href="contact.html" class="drawer-link">お問い合わせ</a></li>
+      </ul></nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="bgm-free" aria-labelledby="bgm-free-heading">
+      <div class="bgm-free__inner">
+
+        <div class="bgm-free__headrow">
+          <h1 id="bgm-free-heading" class="bgm-free__heading">無料BGMライブラリ</h1>
+          <details class="bgm-terms bgm-terms--inline">
+            <summary class="bgm-terms__pill">
+              <span class="bgm-terms__icon" aria-hidden="true">?</span>
+              <span class="bgm-terms__pill-label">利用規約・FAQ</span>
+              <span class="bgm-terms__meta">TRPG卓・配信・公演OK／複数卓で使い回し可／クレジット任意／再配布不可</span>
+            </summary>
+            <div class="bgm-terms__popover" role="region" aria-label="利用規約とFAQの要点">
+              <button type="button" class="bgm-terms__close" aria-label="閉じる">×</button>
+              <ul class="bgm-terms__points">
+                <li>TRPGやマダミスなどのBGMにどうぞ（商用もOK）</li>
+                <li>著作権は放棄していませんが、ロイヤリティフリーの利用許諾をお渡しします（回数制限なし）</li>
+                <li>再配布と素材改変はご遠慮ください（音量調整などの非改変操作はOK）</li>
+              </ul>
+              <p class="bgm-terms__digest">TRPG卓・配信・公演OK／複数卓で使い回し可／クレジット任意／再配布不可</p>
+            </div>
+          </details>
+        </div>
+
+        <!-- フィルタ -->
+        <div class="bgm-filter" role="region" aria-label="検索とフィルタ">
+          <div class="bgm-filter__search">
+            <label for="bgm-search" class="visually-hidden">検索</label>
+            <input id="bgm-search" class="bgm-input" type="search" placeholder="タイトル／ムードで検索（例：静謐、緊張）">
+          </div>
+          <div class="bgm-filter__chips">
+            <span class="bgm-filter__label">世界観：</span>
+            <button class="bgm-chip bgm-chip--world is-active" data-world="all" type="button" aria-pressed="true">ALL</button>
+            <button class="bgm-chip bgm-chip--world" data-world="heian" type="button" aria-pressed="false">和風（平安）</button>
+            <button class="bgm-chip bgm-chip--world" data-world="modern" type="button" aria-pressed="false">現代</button>
+          </div>
+          <div class="bgm-filter__chips">
+            <span class="bgm-filter__label">用途：</span>
+            <button class="bgm-chip bgm-chip--tag" data-tag="決戦" type="button" aria-pressed="false">#決戦</button>
+            <button class="bgm-chip bgm-chip--tag" data-tag="導入" type="button" aria-pressed="false">#導入</button>
+            <button class="bgm-chip bgm-chip--tag" data-tag="枯山水" type="button" aria-pressed="false">#枯山水</button>
+            <button class="bgm-chip bgm-chip--tag" data-tag="日常" type="button" aria-pressed="false">#日常</button>
+            <button class="bgm-chip bgm-chip--tag" data-tag="妖孽奇譚" type="button" aria-pressed="false">#妖孽奇譚</button>
+            <button class="bgm-chip bgm-chip--tag" data-tag="桜" type="button" aria-pressed="false">#桜</button>
+            <button class="bgm-chip bgm-chip--tag" data-tag="秋" type="button" aria-pressed="false">#秋</button>
+          </div>
+        </div>
+
+        <!-- 曲テーブル -->
+        <div class="bgm-table-wrap">
+          <table class="bgm-table">
+            <thead><tr>
+              <th>タイトル</th><th>試聴</th><th>用途タグ</th><th>ムード</th><th>尺</th><th>BPM</th><th>世界観</th><th>ダウンロード</th>
+            </tr></thead>
+            <tbody id="bgm-tbody">
+              <tr class="bgm-row" data-world="heian" data-tags="決戦,高揚感" data-text="いざ勝負！ ノリノリ 決戦,高揚感">
+                <td data-label="タイトル"><strong>いざ勝負！</strong></td>
+                <td data-label="試聴"><audio class="bgm-audio" preload="none" controls src="https://dl.aduki-syuppan.com/bgm/free/wahu1.mp3"></audio></td>
+                <td data-label="用途タグ"><span class="bgm-tag">#決戦</span><span class="bgm-tag">#高揚感</span></td>
+                <td data-label="ムード">ノリノリ</td>
+                <td data-label="尺">01:14</td>
+                <td data-label="BPM">89</td>
+                <td data-label="世界観">和風（平安）</td>
+                <td data-label="ダウンロード"><a class="bgm-link--btn" href="https://dl.aduki-syuppan.com/bgm/free/wahu1.mp3" target="_blank" rel="noopener">MP3</a></td>
+              </tr>
+              <tr class="bgm-row" data-world="heian" data-tags="導入,風雅" data-text="物語の戸口 静かな期待 導入,風雅">
+                <td data-label="タイトル"><strong>物語の戸口</strong></td>
+                <td data-label="試聴"><audio class="bgm-audio" preload="none" controls src="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/wafu7_FREE_norm.mp3"></audio></td>
+                <td data-label="用途タグ"><span class="bgm-tag">#導入</span><span class="bgm-tag">#風雅</span></td>
+                <td data-label="ムード">静かな期待</td>
+                <td data-label="尺">03:10</td>
+                <td data-label="BPM">149</td>
+                <td data-label="世界観">和風（平安）</td>
+                <td data-label="ダウンロード"><a class="bgm-link--btn" href="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/wafu7_FREE_norm.mp3" target="_blank" rel="noopener">MP3</a></td>
+              </tr>
+              <tr class="bgm-row" data-world="heian" data-tags="枯山水,しっとり" data-text="雨上がり 穏やか 枯山水,しっとり">
+                <td data-label="タイトル"><strong>雨上がり</strong></td>
+                <td data-label="試聴"><audio class="bgm-audio" preload="none" controls src="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/wafu6_FREE_norm.mp3"></audio></td>
+                <td data-label="用途タグ"><span class="bgm-tag">#枯山水</span><span class="bgm-tag">#しっとり</span></td>
+                <td data-label="ムード">穏やか</td>
+                <td data-label="尺">02:03</td>
+                <td data-label="BPM">122</td>
+                <td data-label="世界観">和風（平安）</td>
+                <td data-label="ダウンロード"><a class="bgm-link--btn" href="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/wafu6_FREE_norm.mp3" target="_blank" rel="noopener">MP3</a></td>
+              </tr>
+              <tr class="bgm-row" data-world="heian" data-tags="粋,妖孽奇譚" data-text="頼光のテーマ ノリノリ 粋,妖孽奇譚">
+                <td data-label="タイトル"><strong>頼光のテーマ</strong></td>
+                <td data-label="試聴"><audio class="bgm-audio" preload="none" controls src="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/wafu2_FREE_norm.mp3"></audio></td>
+                <td data-label="用途タグ"><span class="bgm-tag">#粋</span><span class="bgm-tag">#妖孽奇譚</span></td>
+                <td data-label="ムード">ノリノリ</td>
+                <td data-label="尺">3:25</td>
+                <td data-label="BPM">85</td>
+                <td data-label="世界観">和風（平安）</td>
+                <td data-label="ダウンロード"><a class="bgm-link--btn" href="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/wafu2_FREE_norm.mp3" target="_blank" rel="noopener">MP3</a></td>
+              </tr>
+              <tr class="bgm-row" data-world="heian" data-tags="軽やか,妖孽奇譚" data-text="静乃のテーマ かわいい 軽やか,妖孽奇譚">
+                <td data-label="タイトル"><strong>静乃のテーマ</strong></td>
+                <td data-label="試聴"><audio class="bgm-audio" preload="none" controls src="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/wafu3_FREE_norm.mp3"></audio></td>
+                <td data-label="用途タグ"><span class="bgm-tag">#軽やか</span><span class="bgm-tag">#妖孽奇譚</span></td>
+                <td data-label="ムード">かわいい</td>
+                <td data-label="尺">04:39</td>
+                <td data-label="BPM">144</td>
+                <td data-label="世界観">和風（平安）</td>
+                <td data-label="ダウンロード"><a class="bgm-link--btn" href="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/wafu3_FREE_norm.mp3" target="_blank" rel="noopener">MP3</a></td>
+              </tr>
+              <tr class="bgm-row" data-world="heian" data-tags="のんびり,妖孽奇譚" data-text="慧のテーマ 穏やか のんびり,妖孽奇譚">
+                <td data-label="タイトル"><strong>慧のテーマ</strong></td>
+                <td data-label="試聴"><audio class="bgm-audio" preload="none" controls src="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/wafu4_FREE_norm.mp3"></audio></td>
+                <td data-label="用途タグ"><span class="bgm-tag">#のんびり</span><span class="bgm-tag">#妖孽奇譚</span></td>
+                <td data-label="ムード">穏やか</td>
+                <td data-label="尺">03:58</td>
+                <td data-label="BPM">140</td>
+                <td data-label="世界観">和風（平安）</td>
+                <td data-label="ダウンロード"><a class="bgm-link--btn" href="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/wafu4_FREE_norm.mp3" target="_blank" rel="noopener">MP3</a></td>
+              </tr>
+              <tr class="bgm-row" data-world="modern" data-tags="日常,軽快" data-text="青空散歩 軽やか 日常,軽快">
+                <td data-label="タイトル"><strong>青空散歩</strong></td>
+                <td data-label="試聴"><audio class="bgm-audio" preload="none" controls src="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/gendai5_FREE_norm.mp3"></audio></td>
+                <td data-label="用途タグ"><span class="bgm-tag">#日常</span><span class="bgm-tag">#軽快</span></td>
+                <td data-label="ムード">軽やか</td>
+                <td data-label="尺">03:39</td>
+                <td data-label="BPM">100</td>
+                <td data-label="世界観">現代</td>
+                <td data-label="ダウンロード"><a class="bgm-link--btn" href="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/gendai5_FREE_norm.mp3" target="_blank" rel="noopener">MP3</a></td>
+              </tr>
+              <tr class="bgm-row" data-world="modern" data-tags="秋,流麗" data-text="木枯らしの夕焼け クール 秋,流麗">
+                <td data-label="タイトル"><strong>木枯らしの夕焼け</strong></td>
+                <td data-label="試聴"><audio class="bgm-audio" preload="none" controls src="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/gendai3_FREE_norm.mp3"></audio></td>
+                <td data-label="用途タグ"><span class="bgm-tag">#秋</span><span class="bgm-tag">#流麗</span></td>
+                <td data-label="ムード">クール</td>
+                <td data-label="尺">02:57</td>
+                <td data-label="BPM">92</td>
+                <td data-label="世界観">現代</td>
+                <td data-label="ダウンロード"><a class="bgm-link--btn" href="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/gendai3_FREE_norm.mp3" target="_blank" rel="noopener">MP3</a></td>
+              </tr>
+              <tr class="bgm-row" data-world="modern" data-tags="桜,高校生" data-text="卒業式の帰り道 穏やか 桜,高校生">
+                <td data-label="タイトル"><strong>卒業式の帰り道</strong></td>
+                <td data-label="試聴"><audio class="bgm-audio" preload="none" controls src="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/gendai8_FREE_norm.mp3"></audio></td>
+                <td data-label="用途タグ"><span class="bgm-tag">#桜</span><span class="bgm-tag">#高校生</span></td>
+                <td data-label="ムード">穏やか</td>
+                <td data-label="尺">03:18</td>
+                <td data-label="BPM">85</td>
+                <td data-label="世界観">現代</td>
+                <td data-label="ダウンロード"><a class="bgm-link--btn" href="https://aduki-shuppan.sakura.ne.jp/dl/bgm/free/gendai8_FREE_norm.mp3" target="_blank" rel="noopener">MP3</a></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="bgm-nowplaying" id="bgm-nowplaying" hidden>
+          <div class="bgm-nowplaying__inner">
+            <span id="bgm-now-title">Now Playing</span>
+            <button id="bgm-now-stop" class="bgm-chip" type="button">停止</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer"><small>© 2026, <a href="../index.html">妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版</a></small></footer>
+
+  <script>
+    // ドロワー
+    (function(){
+      const burger=document.querySelector('.burger'),drawer=document.getElementById('site-drawer'),closeBtn=document.querySelector('.drawer-close');
+      if(!burger||!drawer)return;
+      burger.addEventListener('click',function(){drawer.classList.toggle('is-open');burger.setAttribute('aria-expanded',drawer.classList.contains('is-open'));});
+      closeBtn.addEventListener('click',function(){drawer.classList.remove('is-open');burger.setAttribute('aria-expanded','false');});
+      document.addEventListener('click',function(e){if(drawer.classList.contains('is-open')&&!drawer.contains(e.target)&&!burger.contains(e.target)){drawer.classList.remove('is-open');burger.setAttribute('aria-expanded','false');}});
+    })();
+
+    // BGMライブラリロジック
+    document.addEventListener('DOMContentLoaded', function() {
+      const tbody = document.getElementById('bgm-tbody');
+      if (!tbody) return;
+      const audios = tbody.querySelectorAll('.bgm-audio');
+      let currentAudio = null;
+      const bar = document.getElementById('bgm-nowplaying');
+      const barTitle = document.getElementById('bgm-now-title');
+      const barStop = document.getElementById('bgm-now-stop');
+
+      audios.forEach(a => {
+        a.addEventListener('play', () => {
+          audios.forEach(b => { if (b !== a) b.pause(); });
+          currentAudio = a;
+          const row = a.closest('.bgm-row');
+          barTitle.textContent = row ? row.querySelector('[data-label="タイトル"] strong').textContent.trim() : 'Now Playing';
+          bar.hidden = false;
+        });
+        a.addEventListener('ended', () => { if (currentAudio === a) bar.hidden = true; });
+      });
+      if (barStop) barStop.addEventListener('click', () => { if (currentAudio) currentAudio.pause(); bar.hidden = true; });
+
+      // フィルタ
+      let selectedWorld = '';
+      let selectedTags = [];
+      const worldChips = document.querySelectorAll('.bgm-chip--world');
+      const tagChips = document.querySelectorAll('.bgm-chip--tag');
+      const searchInput = document.getElementById('bgm-search');
+
+      worldChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const w = chip.dataset.world;
+          selectedWorld = (w === 'all') ? '' : w;
+          worldChips.forEach(ch => { const active = (ch.dataset.world === w); ch.classList.toggle('is-active', active); ch.setAttribute('aria-pressed', active); });
+          applyFilter();
+        });
+      });
+      tagChips.forEach(chip => {
+        chip.addEventListener('click', () => {
+          const t = chip.dataset.tag;
+          const i = selectedTags.indexOf(t);
+          if (i === -1) { selectedTags.push(t); chip.classList.add('is-active'); chip.setAttribute('aria-pressed','true'); }
+          else { selectedTags.splice(i,1); chip.classList.remove('is-active'); chip.setAttribute('aria-pressed','false'); }
+          applyFilter();
+        });
+      });
+      if (searchInput) searchInput.addEventListener('input', applyFilter);
+
+      function applyFilter() {
+        const q = (searchInput ? searchInput.value : '').trim().toLowerCase();
+        tbody.querySelectorAll('.bgm-row').forEach(row => {
+          const rw = row.dataset.world || '';
+          const rt = (row.dataset.tags || '').split(',').map(s => s.trim());
+          const rx = row.dataset.text || '';
+          const wOk = !selectedWorld || selectedWorld === rw;
+          const tOk = (selectedTags.length === 0) || selectedTags.some(t => rt.includes(t));
+          const qOk = !q || rx.toLowerCase().includes(q);
+          row.style.display = (wOk && tOk && qOk) ? '' : 'none';
+        });
+      }
+
+      // 規約ポップオーバー
+      const terms = document.querySelector('.bgm-terms--inline');
+      if (terms) {
+        document.addEventListener('click', e => { if (!terms.hasAttribute('open')) return; if (!terms.contains(e.target)) terms.removeAttribute('open'); });
+        const cb = terms.querySelector('.bgm-terms__close');
+        if (cb) cb.addEventListener('click', () => terms.removeAttribute('open'));
+        document.addEventListener('keydown', e => { if (e.key === 'Escape' && terms.hasAttribute('open')) { terms.removeAttribute('open'); } });
+      }
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,248 @@
+/* =========================================================
+   Hero – Heian (Header styles)  ← ヘッダー既存ブロック
+   ========================================================= */
+
+html, body { margin: 0; padding: 0; }
+
+.header-heian{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding: var(--spacing-sections-mobile, .7rem 1rem);
+  background:#0e1a35;
+  color:#fff;
+  backdrop-filter: blur(4px);
+  border-bottom:1px solid rgba(255,255,255,.15);
+  box-shadow: 0 2px 4px rgba(0,0,0,.15);
+}
+@media (min-width:750px){
+  .header-heian{ padding: var(--spacing-sections-desktop, .7rem 1rem); }
+}
+
+.header-inner{
+  max-width:1200px;
+  margin:0 auto;
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:1rem;
+}
+.header-logo img{ max-height:48px; width:auto; }
+
+.header-title{
+  flex:1;
+  text-align:center;
+  font-weight:600;
+  line-height:1;
+  font-size:2rem;
+  color:#f3d068;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+@media (max-width:768px){ .header-title{ font-size:1.5rem; } }
+
+.header-heian .header-actions{
+  display:flex;
+  align-items:center;
+  gap:.25rem;
+}
+.header-heian .header-actions a,
+.header-heian .header-actions button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:.35rem;
+  font-size:2rem;
+  min-width:3.2rem;
+  min-height:3.2rem;
+  padding:.35rem .5rem;
+  line-height:1;
+  color:inherit;
+  background:transparent;
+  border:none;
+  border-radius:8px;
+  cursor:pointer;
+  text-decoration:none;
+}
+.header-heian .header-actions a:hover,
+.header-heian .header-actions a:focus-visible,
+.header-heian .header-actions button:hover,
+.header-heian .header-actions button:focus-visible{
+  background:rgba(255,255,255,.08);
+  outline:2px solid rgba(255,255,255,.28);
+  outline-offset:2px;
+}
+.nav-label{ display:none; font-size:.95rem; color:#CCA93A; line-height:1; }
+@media (min-width:768px){ .nav-label{ display:inline; } }
+
+.drawer{
+  position:fixed; top:0; right:-100%;
+  width:min(80%, 320px); height:100vh;
+  background:#0e1a35; z-index:9999; overflow-y:auto;
+  transition:right .3s ease; padding:1rem; display:block;
+}
+.drawer.is-open{ right:0; }
+.drawer-close{
+  background:none; border:none; font-size:1.6rem; color:#fff;
+  margin-bottom:1rem; cursor:pointer; min-width:44px; min-height:44px; border-radius:8px;
+}
+.drawer-close:hover,.drawer-close:focus-visible{
+  background:rgba(255,255,255,0.1); outline:2px solid rgba(255,255,255,.3); outline-offset:2px;
+}
+.drawer-nav{ display:flex; flex-direction:column; margin:0; padding:0; }
+.drawer-link{
+  display:block; font-size:1rem; line-height:1.6; padding:.75rem 1rem;
+  color:#CCA93A; text-decoration:none; border-radius:8px;
+}
+@media (min-width:768px){ .drawer-link{ font-size:1.125rem; } }
+@media (min-width:1024px){ .drawer-link{ font-size:1.7rem; } }
+.drawer-link:hover,.drawer-link:focus-visible{ background:rgba(255,255,255,0.1); outline:none; }
+
+.skip-to-content-link{ display:none !important; }
+
+@media (min-width:1024px){
+  .header-inner { justify-content: center; gap: .75rem; }
+  .header-title { flex: 0 0 auto; margin: 0 .75rem 0 .5rem; }
+  .header-heian .header-actions { margin-left: .25rem; }
+}
+
+@media (min-width: 768px){
+  .nav-label{
+    font-size: clamp(1rem, calc(0.95rem + 0.25vw), 1.125rem);
+    font-weight: 600; color: #f3d068; letter-spacing: .01em;
+  }
+  .header-heian .header-actions a,
+  .header-heian .header-actions button{ gap:.45rem; }
+}
+.header-heian .header-actions button,
+.header-heian .header-actions button .nav-label,
+.burger{ font-family: var(--font-body, "Noto Serif JP", serif) !important; }
+
+@media (max-width: 767px){
+  .drawer-nav .drawer-link{
+    font-size: 1.8rem; line-height: 1.75; padding: 1.0rem 1.3rem; letter-spacing: .01em; color: #f3d068;
+  }
+}
+
+/* =========================================================
+   Hero – Heian (HERO styles)
+   ========================================================= */
+
+.hero-heian{
+  max-width: 1100px;
+  margin: 2.5rem auto 0;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+/* 画像は単独ブロック */
+.hero-heian__main img{
+  display: block; margin: 0 auto;
+  width: 100%; height: auto;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.16);
+}
+
+/* === 面（カード）：タイトルも含めて“ひとくくり” =================== */
+.hero-heian__meta{
+  display: inline-block;
+  margin: 1rem auto 0;
+  padding: 1.35rem 1.6rem 1.5rem;
+  background: rgba(255, 255, 255, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  text-align: center;
+  max-width: 60rem;
+}
+@media (min-width: 768px){
+  .hero-heian__meta{ padding: 1.5rem 2.2rem 1.8rem; }
+}
+
+/* タイトル（面の中） */
+.hero-heian__title{
+  margin: 0 0 .6rem;
+  font-size: clamp(1.9rem, 1.2rem + 2.1vw, 2.7rem);
+  line-height: 1.25; font-weight: 700; color: #0e1a35;
+}
+
+/* 本文：少し大きめ */
+.hero-heian__subtitle{
+  margin: .4rem auto 1.1rem;
+  font-size: clamp(1.15rem, 1.05rem + 0.95vw, 1.5rem);
+  line-height: 1.9; color: #333; max-width: 48rem;
+}
+
+/* CTA：サイズUP（読みやすさ重視） */
+.hero-heian__cta-group{
+  display: flex; flex-wrap: wrap; gap: .8rem;
+  align-items: center; justify-content: center; margin-top: .2rem;
+}
+.hero-heian__cta{
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 1.05rem 1.5rem;                 /* ← ボタンを大きく */
+  border-radius: 999px; font-weight: 800;
+  font-size:clamp(1.35rem, 1.05rem + 1.2vw, 1.7rem);                     /* ← 文字サイズUP */
+  text-decoration: none;
+  background: #ff7a1a; border: 1px solid #ff7a1a; color: #fff;
+  box-shadow: 0 2px 0 rgba(0,0,0,.12), 0 6px 18px rgba(255,122,26,.25);
+  transition: transform .05s ease, filter .15s ease;
+}
+.hero-heian__cta:hover, .hero-heian__cta:focus-visible{ filter: brightness(.92); }
+.hero-heian__cta:active{ transform: translateY(1px); }
+
+/* 2個目（BOOTH）は縁取りだけにする例。未設定なら出ません */
+.hero-heian__cta--ghost{
+  background: transparent; color: #ff7a1a; border-color: #ff7a1a; box-shadow: none;
+}
+
+@media (min-width: 1024px){
+  .hero-heian{ margin-top: 3rem; }
+}
+
+
+/* === Salesセクションを“やわらかカード”で強調 ==================== */
+#shopify-section-sales{
+  max-width: 1100px;             /* ヒーローと同幅感 */
+  margin: 2rem auto 0;
+  padding: 1.35rem 1.6rem 1.6rem;
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 16px;
+  box-shadow: 0 10px 24px rgba(0,0,0,.12);
+  text-align: center;
+}
+
+/* 見出しと本文の間隔を整える */
+#shopify-section-sales h2{
+  margin-top: .2rem;
+  margin-bottom: .6rem;
+}
+#shopify-section-sales p{
+  margin: 0 auto 1rem;
+  max-width: 48rem;
+}
+
+/* 下段CTAもヒーローと揃える（サイズ・見た目） */
+#shopify-section-sales .hero-heian__cta{
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.05rem 1.5rem;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: clamp(1.35rem, 1.05rem + 1.2vw, 1.7rem); /* 上と同じ大きさ */
+  text-decoration: none;
+  background: #ff7a1a;
+  border: 1px solid #ff7a1a;
+  color: #fff;
+  box-shadow: 0 2px 0 rgba(0,0,0,.12), 0 6px 18px rgba(255,122,26,.25);
+  transition: transform .05s ease, filter .15s ease;
+  margin: .25rem .4rem 0;        /* ボタン間の余白 */
+}
+#shopify-section-sales .hero-heian__cta:hover,
+#shopify-section-sales .hero-heian__cta:focus-visible{ filter: brightness(.92); }
+#shopify-section-sales .hero-heian__cta:active{ transform: translateY(1px); }

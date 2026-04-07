@@ -1,0 +1,236 @@
+/* ===================== base.css v2 (Mincho + 和紙) ===================== */
+/*----------------------------------------------------------------
+  0. Global variables & texture
+----------------------------------------------------------------*/
+:root {
+  --paper: #f9f5f2;
+  --paper-bg: #f9f5f2;
+  --washi-url: url("washi-texture.png");
+  --font-body: 'Noto Serif JP', serif;
+}
+
+/*----------------------------------------------------------------
+  1. Reset & base
+----------------------------------------------------------------*/
+html, body {
+  font-family: var(--font-body);
+  line-height: 1.7;
+  letter-spacing: 0.03em;
+  background: var(--paper-bg);
+  position: relative;
+  -webkit-text-size-adjust: 100%;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: var(--washi-url) repeat;
+  background-size: 400px;
+  mix-blend-mode: overlay;
+  opacity: .30;
+  pointer-events: none;
+  z-index: -1;
+}
+body.no-washi::before { display: none; }
+
+/*----------------------------------------------------------------
+  2. Utility shims（Tailwind 代替・最小）
+----------------------------------------------------------------*/
+.mx-auto { margin-left: auto!important; margin-right: auto!important; }
+.text-center { text-align: center!important; }
+.max-w-3xl { max-width: 48rem!important; }
+.max-w-5xl { max-width: 64rem!important; }
+.py-12 { padding-block: 3rem!important; }
+.mb-4 { margin-bottom: 1rem!important; }
+.mb-8 { margin-bottom: 2rem!important; }
+
+/*----------------------------------------------------------------
+  3. LP 本文中央寄せ
+----------------------------------------------------------------*/
+.rich-text__wrapper,
+.price-table,
+.icon-list,
+.characters-gallery,
+.timeline-heian {
+  text-align: center;
+  margin-inline: auto;
+}
+.rich-text__wrapper * {
+  text-align: inherit;
+  margin-inline: auto;
+}
+
+/*----------------------------------------------------------------
+  4. Header – Heian  (サイト共通ヘッダー)
+----------------------------------------------------------------*/
+.header-heian {
+  background: #0d2336;
+  color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 60;
+  box-shadow: 0 2px 4px rgba(0,0,0,.15);
+}
+.header-inner {
+  max-width: 1200px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 0.8rem 1rem;
+}
+.header-logo img {
+  max-height: 48px;
+  width: auto;
+}
+.header-nav {
+  display: flex;
+  gap: 2rem;
+  margin-inline: auto;
+  font-weight: 600;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+.nav-link:hover { opacity: .85; }
+
+/* Header 用 CTA ボタン */
+.header-heian .btn-cta {
+  background: #d78e00;
+  padding: .5rem 1.2rem;
+  border-radius: 4px;
+  font-weight: 700;
+}
+
+.icon-cart,
+.icon-account { font-size: 1.35rem; }
+.burger {
+  font-size: 1.6rem;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  display: none;
+}
+
+/* ── Mobile */
+@media(max-width:767px) {
+  .header-nav { display: none; }
+  .icon-account { display: none; }
+  .burger { display: block; }
+  /* Header 用 CTA はモバイルでは Drawer 内 */
+  .header-heian .btn-cta { display: none; }
+
+  /* ── ドロワーメニュー修正箇所 ── */
+  .drawer {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 320px;
+    height: 100vh;
+    background: #0e1a35;
+    transition: right .3s ease;
+    z-index: 70;
+    overflow-y: auto;
+    padding: 1rem; /* 必要に応じ調整 */
+    display: block; /* 元の display:none は不要に */
+  }
+  .drawer.is-open {
+    right: 0;
+  }
+  .drawer-close {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: #fff;
+    margin-bottom: 1rem;
+    cursor: pointer;
+  }
+  .drawer-nav {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+  }
+  .drawer-nav .drawer-link {
+    font-size: 1rem;
+    line-height: 1.5;
+    padding: 0.75rem 1rem;
+    color: #CCA93A;
+    text-decoration: none;
+  }
+  .drawer-nav .drawer-link:hover,
+  .drawer-nav .drawer-link:focus {
+    background: rgba(255,255,255,0.1);
+    outline: none;
+  }
+  /* drawer-cta は今回は使用しないため削除または無視 */
+}
+
+/*── Center title fix ───────────────────────────────────────*/
+.header-title {
+  flex: 1;                       /* ロゴとアクションの間で伸びる */
+  text-align: center;
+  font-weight: 600;
+  font-size: 1rem;
+  white-space: nowrap;           /* 1 行に収める */
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.header-nav { margin-left: auto; }  /* ナビは右寄せ */
+
+.header-heian .header-nav { display: none!important; }
+
+/* ===================================
+   Header Title Responsive Adjust
+   =================================== */
+.header-heian .header-title {
+  color: #f3d068;     /* やや明るめのゴールド */
+  font-weight: 600;
+  line-height: 1;
+  font-size: 2rem;    /* デスクトップ基準 */
+}
+
+@media (max-width: 768px) {
+  .header-heian .header-title {
+    font-size: 1.5rem;  /* タブレット以下 */
+  }
+}
+
+/* ===================== end base.css v2 ===================== */
+
+
+/* カード内アウトラインCTAを少し強調（hover時のみ塗り） */
+.seriesx .button--secondary { border-width: 1.5px; padding: .6rem 1rem; }
+.seriesx .button--secondary:hover {
+  background: var(--color-button);
+  color: var(--color-button-text);
+  border-color: transparent;
+}
+
+/* テキストリンクCTA（補助導線） */
+.seriesx__link-cta{
+  display:inline-block;
+  font-weight:600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  line-height: 1.6;
+}
+.seriesx__link-cta:hover{ opacity:.85; }
+
+/* 上段カード内の並びを整える：主ボタン→その下にテキストリンク */
+.seriesx__ctas{ display:flex; flex-direction:column; gap:.4rem; }
+
+/* アウトライン主ボタンを少し押しやすく（小さな調整） */
+.seriesx .button--secondary{
+  border-width: 2px;
+  padding: .66rem 1.1rem;
+}
+.seriesx .button--secondary:hover{
+  background: var(--color-button);
+  color: var(--color-button-text);
+  border-color: transparent;
+}

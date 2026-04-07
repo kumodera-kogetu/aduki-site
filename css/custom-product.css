@@ -1,0 +1,320 @@
+/* =================================================================
+   assets/custom-product.css
+   ================================================================= */
+
+/* ─── Container centralization ─── */
+.page-width {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 90rem;
+  padding-inline: 1rem;
+}
+
+/* ─── Main image fixed aspect ratio container ─── */
+.product-main-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+}
+.product-main-media img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: .5rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* ─── Two-column layout override for Dawn’s .grid.grid--2-col ─── */
+.page-width .grid.grid--2-col {
+  display: grid;
+  grid-template-columns: min(60rem, 60%) 1fr;
+  gap: 4rem;
+  margin-block: 4rem;
+}
+@media (max-width: 999px) {
+  .page-width .grid.grid--2-col {
+    grid-template-columns: 1fr;
+    margin-block: 2rem;
+  }
+}
+
+/* =================================================================
+   1. 購入カード（画像下）＋縦幅詰め
+   ================================================================= */
+.product-purchase-card {
+  align-self: start;        /* Gridのストレッチ解除 */
+  display: inline-block;    /* 中身幅にフィット */
+  width: fit-content;
+  background: #fafafa;
+  padding: 0.5rem 1.5rem;   /* 上下0.5rem／左右1.5rem */
+  border-radius: .5rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-top: 2rem;
+}
+@media (max-width: 999px) {
+  .product-purchase-card {
+    display: block;
+    width: 100%;
+  }
+}
+/* フォーム内ギャップを狭く */
+.product-purchase-card .product-form {
+  gap: 0.5rem;
+}
+/* ドロップダウン下マージン削除 */
+.product-purchase-card .product-form__input--dropdown {
+  margin-bottom: 0;
+}
+/* ドロップダウン→数量／数量→ボタン間マージン */
+.product-purchase-card .product-form__input--dropdown + .quantity,
+.product-purchase-card .quantity + .button {
+  margin-top: 0.25rem;
+}
+/* ラベル下マージンを少し詰める */
+.product-purchase-card .product-form__input label {
+  margin-bottom: 0.25rem;
+}
+
+/* =================================================================
+   2. 重要ポイント要約
+   ================================================================= */
+.product-key-points {
+  list-style: disc inside;
+  margin: 1.5rem 0;
+  padding-left: 1rem;
+}
+
+/* =================================================================
+   3. アコーディオン
+   ================================================================= */
+.description-accordion summary {
+  cursor: pointer;
+  font-weight: 600;
+  padding: .5rem 0;
+  border-bottom: 1px solid #ddd;
+}
+.description-accordion .description-content {
+  margin-top: 1rem;
+}
+
+/* =================================================================
+   4. ボタンデザイン（CTA強調）
+   ================================================================= */
+.button.button--primary,
+.product-form .button.button--primary {
+  background-color: #FF7F00;
+  color: #fff;
+  border: none;
+  transition: background-color .2s;
+}
+.button.button--primary:hover,
+.product-form .button.button--primary:hover {
+  background-color: #E66800;
+}
+
+/* =================================================================
+   5. スティッキーバー（モバイル）
+   ================================================================= */
+.purchase-sticky-bar {
+  display: none;
+}
+@media (max-width: 999px) {
+  .purchase-sticky-bar {
+    display: block;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.1);
+    padding: .75rem 1rem;
+    z-index: 1000;
+  }
+  .purchase-sticky-bar .product-form.sticky {
+    display: flex;
+    align-items: center;
+    gap: .75rem;
+  }
+  .purchase-sticky-bar .product-form.sticky .quantity {
+    margin: 0;
+  }
+  .purchase-sticky-bar .button {
+    flex-shrink: 0;
+  }
+}
+
+/* =================================================================
+   6. 既存ギャラリー・テキスト・フォーム等 初期微調整
+   ================================================================= */
+/* -- 画像ギャラリー -- */
+.thumb-list {
+  display: flex;
+  gap: .6rem;
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+.thumb {
+  border: none;
+  padding: 0;
+  background: none;
+  cursor: pointer;
+  opacity: .5;
+  transition: opacity .2s;
+}
+.thumb.is-active,
+.thumb:hover {
+  opacity: 1;
+}
+.thumb img {
+  width: 4.5rem;
+  height: 4.5rem;
+  object-fit: cover;
+  border-radius: .3rem;
+}
+
+/* -- Quantity ボタンをテキスト表示に -- */
+.quantity__button svg {
+  display: none !important;
+}
+.quantity__button[name="minus"]::before,
+.quantity__button[name="plus"]::before {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: #333;
+}
+.quantity__button[name="minus"]::before { content: '−'; }
+.quantity__button[name="plus"]::before  { content: '+'; }
+.quantity__button {
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* -- テキスト -- */
+.text-col {
+  font-size: clamp(1.1rem, 2.2vw, 1.35rem);
+  line-height: 1.9;
+  white-space: normal;
+  max-width: 960px;
+}
+.text-col h1,
+.text-col h2 {
+  margin-top: 1.5rem;
+  font-weight: 700;
+}
+.text-col h2 {
+  font-size: 1.5em;
+  position: relative;
+}
+.text-col h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -.35em;
+  width: 4rem;
+  height: .25rem;
+  background: #c5b39c;
+}
+.text-col p {
+  margin: 0 0 1.2rem;
+}
+
+/* -- Edition 選択の枠サイズ調整 -- */
+.product-form__input--dropdown {
+  max-width: 15rem;
+  margin-bottom: 0;
+}
+.product-form__input--dropdown .select__select {
+  padding: .4rem .8rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: .25rem;
+  background-position: right .6rem center;
+}
+
+/* -- フォーム全体 -- */
+.product-form {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;            /* 内部ギャップを詰める */
+  max-width: 28rem;
+}
+.product-form__input {
+  display: flex;
+  flex-direction: column;
+  gap: .45rem;
+}
+.product-form__input label {
+  font-weight: 600;
+  font-size: 1rem;
+}
+.product-form__input select {
+  width: 100%;
+  padding: .4rem .8rem;
+  font-size: 1rem;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: .25rem;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2012%2012'%3E%3Cpath%20d='M2%204l4%204l4-4'%20stroke='%23666'%20stroke-width='2'%20fill='none'%20stroke-linecap='round'%20stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right .6rem center;
+  background-size: .6rem;
+}
+select::-ms-expand {
+  display: none;
+}
+
+/* -- Quantity & native input adjustments -- */
+.quantity {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  align-self: flex-start;
+  margin-top: 0;
+}
+.quantity__input {
+  width: 4rem;
+  text-align: center;
+  padding: .4rem;
+  font-size: 1rem;
+}
+.product-form__input--dropdown + .quantity,
+.quantity + .button {
+  margin-top: .25rem;
+}
+
+/* -- Hide Shopify auto-icons -- */
+select + span.svg-wrapper,
+.icon-caret {
+  display: none !important;
+}
+
+/* -- Background -- */
+body.template-product {
+  background: url('{{ "washi-bg.png" | asset_url }}') top repeat;
+}
+
+/* -- Mobile: inline-flex for quantity + button -- */
+.product-form .quantity,
+.product-form button[name="add"] {
+  display: inline-flex;
+  align-items: center;
+}
+@media (max-width: 640px) {
+  .product-form .quantity,
+  .product-form button[name="add"] {
+    display: block;
+    width: 100%;
+  }
+}

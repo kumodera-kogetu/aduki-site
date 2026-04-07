@@ -1,0 +1,94 @@
+/* ─── about.css ─── */
+
+/* セクション全体 */
+.section-about { width: 100%; }
+
+/* Hero タイトル帯 */
+.section-about .about-hero {
+  background-color: #0d2336;  /* 紺基調 */
+  color: #D4AF37;             /* 淡い金色 */
+  text-align: center;
+  padding: 3rem 1rem;         /* 4rem → 3rem に少し圧縮 */
+}
+.section-about .about-hero .about-title {
+  font-family: 'Noto Serif JP', serif;
+  /* H1：32px〜48px（控えめにして余白との釣り合いを最適化） */
+  font-size: clamp(2rem, 1.1rem + 2vw, 3rem);
+  margin: 0;
+}
+
+/* 本文エリア */
+.section-about .about-content { padding: 3rem 1rem 4rem; }
+
+.section-about .about-text {
+  /* 読みやすい列幅：最小44rem〜最大56rem、画面に応じて流体 */
+  max-width: clamp(44rem, 72vw, 56rem);
+  margin: 0 auto;
+  color: #000;
+  /* 本文：20px〜24px（前回と同じ帯） */
+  font-size: clamp(1.25rem, 1.05rem + 1.2vw, 1.5rem);
+  line-height: 1.75;
+  font-family: 'Noto Serif JP', serif;
+  text-align: left;
+}
+
+/* 引用ブロック */
+.section-about blockquote {
+  font-style: italic;
+  margin: 2rem 0;
+  padding-left: 1rem;
+  border-left: 4px solid #0d2336;
+}
+
+/* 小見出し（ページ内見出し） */
+.section-about h2 {
+  margin-top: 2.25rem;        /* 3rem → 2.25rem（間延び防止） */
+  /* H2：28px〜44px（H1と半段差） */
+  font-size: clamp(1.75rem, 1rem + 1.8vw, 2.75rem);
+  color: #0d2336;
+}
+
+/* リストの余白最適化 */
+.section-about ul,
+.section-about ol { margin: 1rem 0 0 1.2rem; }
+.section-about li { margin-bottom: .45rem; }
+
+/* リンク */
+.section-about a {
+  color: #0d2336;
+  text-decoration: underline;
+}
+
+/* ── ２カラム：アイコン＋略歴 ──
+   中央“寄りすぎ”対策でテキストは左寄せ。幅は本文と完全一致。 */
+.about-intro-block {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;                /* 2rem → 1.5rem に圧縮 */
+  margin: 2rem auto 2.5rem;   /* 上下の余白を少し詰める */
+  max-width: clamp(44rem, 72vw, 56rem);
+  padding: 0 1rem;
+  text-align: left;           /* ここを明示して見出しの中央寄せを防止 */
+}
+.about-intro-block .intro-image { flex: 0 0 200px; text-align: center; }
+.about-intro-block .intro-image img {
+  width: 100%; height: auto; border-radius: 50%;
+}
+
+/* プロフィール側の本文（18〜22px） */
+.about-intro-block .intro-list {
+  flex: 1;
+  max-width: 520px;           /* 少しだけ広げても可読帯を維持 */
+  font-size: clamp(1.125rem, 0.95rem + 0.8vw, 1.375rem);
+}
+.about-intro-block .intro-list h2 {
+  margin-bottom: 1rem;
+  color: #0d2336;
+}
+
+/* モバイル最適化：ヒーロー帯の上下余白をさらに少し控えめに */
+@media (max-width: 480px) {
+  .section-about .about-hero { padding: 2.5rem 1rem; }
+}
+

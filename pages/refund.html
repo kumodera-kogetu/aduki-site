@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>返金ポリシー – 妖孽奇譚 公式サイト</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/hero-heian.css">
+  <style>
+    :root { --font-body-family: 'Noto Serif JP', serif; --color-foreground: 18,18,18; --font-body-scale: 1.0; }
+    *, *::before, *::after { box-sizing: inherit; }
+    html { box-sizing: border-box; font-size: calc(var(--font-body-scale) * 62.5%); }
+    body { min-height: 100vh; margin: 0; font-size: 1.5rem; font-family: var(--font-body-family);
+      color: rgba(var(--color-foreground), 0.75);
+      background: url("../assets/images/washi-texture2.webp") center/600px repeat; }
+    @media screen and (min-width: 750px) { body { font-size: 1.6rem; } }
+    .page-container { max-width: 768px; margin: 0 auto; padding: 2rem 1rem; }
+    h1 { margin-bottom: 1.5rem; }
+    .footer { margin-top: 75px; text-align: center; padding: 1rem; }
+    .footer a { color: rgba(var(--color-foreground), .5); text-decoration: none; font-size: .85rem; }
+  </style>
+</head>
+<body>
+  <header class="header-heian" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="header-logo"></a>
+      <div class="header-title">彩月のマーダーミステリー出版</div>
+      <div class="header-actions">
+        <a href="../index.html"><span aria-hidden="true">🏠</span><span class="nav-label">ホーム</span></a>
+        <button class="burger" aria-label="メニューを開く" aria-controls="site-drawer" aria-expanded="false" type="button">
+          <span aria-hidden="true">≡</span><span class="nav-label">メニュー</span>
+        </button>
+      </div>
+    </div>
+    <div class="drawer" id="site-drawer">
+      <button class="drawer-close" aria-label="閉じる" type="button">✕</button>
+      <nav><ul class="drawer-nav">
+        <li><a href="about.html" class="drawer-link">著者紹介</a></li>
+        <li><a href="hybridbgm.html" class="drawer-link">無料BGMライブラリ</a></li>
+        <li><a href="undamesi.html" class="drawer-link">妖孽奇譚おみくじ</a></li>
+        <li><a href="frontpage.html" class="drawer-link">妖孽奇譚シリーズ一覧</a></li>
+        <li><a href="blockgame.html" class="drawer-link">和風ブロック崩し</a></li>
+        <li><a href="contact.html" class="drawer-link">お問い合わせ</a></li>
+      </ul></nav>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <h1>返金ポリシー</h1>
+    <h2>返品・返金ポリシー（デジタル商品）</h2>
+    <ul>
+      <li>商品の特性上、購入後の返品・キャンセルはお受けできません。</li>
+      <li>ダウンロード不可や破損ファイル等の不具合があった場合は、購入日を含む <strong>7 日以内</strong>にご連絡ください。確認後、正常なファイルを再送付いたします。</li>
+      <li>ファイル破損時は <a href="mailto:support@aduki-syuppan.com">support@aduki-syuppan.com</a> 宛にご注文番号を添えてご連絡ください。</li>
+    </ul>
+  </main>
+
+  <footer class="footer"><small>© 2026, <a href="../index.html">妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版</a></small></footer>
+  <script>
+    (function(){const b=document.querySelector('.burger'),d=document.getElementById('site-drawer'),c=document.querySelector('.drawer-close');if(!b||!d)return;b.addEventListener('click',function(){d.classList.toggle('is-open');b.setAttribute('aria-expanded',d.classList.contains('is-open'));});c.addEventListener('click',function(){d.classList.remove('is-open');b.setAttribute('aria-expanded','false');});document.addEventListener('click',function(e){if(d.classList.contains('is-open')&&!d.contains(e.target)&&!b.contains(e.target)){d.classList.remove('is-open');b.setAttribute('aria-expanded','false');}});})();
+  </script>
+</body>
+</html>

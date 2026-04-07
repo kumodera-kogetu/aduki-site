@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>妖孽奇譚おみくじ – 妖孽奇譚 公式サイト</title>
+  <meta name="description" content="妖孽奇譚の世界から今日のあなたの運勢を占います。慧・頼光・静乃・コンがあなたにメッセージをくれます。">
+  <meta property="og:image" content="../assets/images/ogp-undamesi.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/hero-heian.css">
+  <style>
+    :root {
+      --font-body-family: 'Noto Serif JP', serif;
+      --font-heading-family: 'Noto Serif JP', serif;
+      --font-body-scale: 1.0;
+      --color-foreground: 18,18,18;
+    }
+    *, *::before, *::after { box-sizing: inherit; }
+    html { box-sizing: border-box; font-size: calc(var(--font-body-scale) * 62.5%); }
+    body { min-height: 100vh; margin: 0; font-size: 1.5rem; font-family: var(--font-body-family);
+      color: rgba(var(--color-foreground), 0.75);
+      background: url("../assets/images/washi-texture2.webp") center/600px repeat; }
+    @media screen and (min-width: 750px) { body { font-size: 1.6rem; } }
+    .page-container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
+    .footer { margin-top: 75px; text-align: center; padding: 1rem; }
+    .footer a { color: rgba(var(--color-foreground), .5); text-decoration: none; font-size: .85rem; }
+
+    /* おみくじスタイル */
+    .omikuji-app-wrapper{position:relative;background:radial-gradient(circle at 50% 50%,#1a293f,#2d4a7a);overflow:hidden;border:4px solid #d8b864;border-radius:2rem;min-height:620px}
+    .omikuji-container{position:relative;z-index:10;max-width:800px;margin:0 auto;padding:2rem;display:flex;flex-direction:column;align-items:center;justify-content:center}
+    .omikuji-header{text-align:center;margin-bottom:3rem}
+    .omikuji-title{font-size:2.5rem;font-weight:700;color:#ffd700;text-shadow:0 0 20px rgba(255,215,0,.5);margin-bottom:1rem}
+    .omikuji-subtitle{font-size:1.2rem;color:#e8e6d3}
+    .omikuji-controls{display:flex;gap:1rem;margin-bottom:2rem;flex-wrap:wrap;justify-content:center}
+    .bgm-button,.omikuji-button{font-size:1.2rem;padding:1rem 2rem;background:linear-gradient(45deg,rgba(26,41,81,.9),rgba(45,74,122,.9));color:#fff;border:none;border-radius:10px;cursor:pointer;box-shadow:0 0 15px rgba(255,215,0,.4);transition:transform .3s ease;font-family:var(--font-body-family)}
+    .bgm-button.playing{background:linear-gradient(45deg,rgba(45,74,122,.9),rgba(26,41,81,.9))}
+    .omikuji-button:hover{transform:translateY(-2px)}
+    .result-container{display:none;flex-direction:column;align-items:center;background:rgba(26,41,81,.9);border:2px solid #ffd700;border-radius:20px;padding:2rem;margin:2rem 0;width:100%;max-width:500px;backdrop-filter:blur(10px);box-shadow:0 0 30px rgba(255,215,0,.2)}
+    .result-container.show{display:flex;animation:slideIn .5s ease-out}
+    @keyframes slideIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+    .fortune-level{font-size:1.8rem;margin-bottom:.8rem;color:#ffd700}
+    .character-image img{width:150px;height:150px;border-radius:50%;margin-bottom:.8rem;object-fit:cover}
+    .fortune-message{font-size:1rem;color:#e8e6d3;margin-bottom:1rem;text-align:center}
+    .action-buttons{display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap;justify-content:center}
+    .action-buttons a{padding:.6rem 1.2rem;border:1px solid #c9c7b8;background:rgba(45,74,122,.7);color:#e8e6d3;border-radius:20px;text-decoration:none;font-size:.9rem;transition:all .3s ease}
+    .action-buttons a:hover{background:rgba(45,74,122,.9);border-color:#ffd700;color:#ffd700;transform:translateY(-1px)}
+    .sfx-ui{display:flex;gap:.75rem;align-items:center;justify-content:center;margin-top:-.5rem;margin-bottom:1rem}
+    .sfx-toggle{font-size:.9rem;color:#c9c7b8;display:flex;align-items:center;gap:.35rem}
+    .sfx-note{font-size:.8rem;color:#9aa0a6}
+    @media(max-width:640px){.omikuji-controls{flex-direction:column;align-items:center}.action-buttons a{width:100%;max-width:220px}}
+  </style>
+</head>
+<body>
+  <header class="header-heian" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="header-logo" aria-label="ホーム"></a>
+      <div class="header-title">彩月のマーダーミステリー出版</div>
+      <div class="header-actions">
+        <a href="../index.html"><span aria-hidden="true">🏠</span><span class="nav-label">ホーム</span></a>
+        <button class="burger" aria-label="メニューを開く" aria-controls="site-drawer" aria-expanded="false" type="button">
+          <span aria-hidden="true">≡</span><span class="nav-label">メニュー</span>
+        </button>
+      </div>
+    </div>
+    <div class="drawer" id="site-drawer">
+      <button class="drawer-close" aria-label="閉じる" type="button">✕</button>
+      <nav><ul class="drawer-nav">
+        <li><a href="about.html" class="drawer-link">著者紹介</a></li>
+        <li><a href="hybridbgm.html" class="drawer-link">無料BGMライブラリ</a></li>
+        <li><a href="undamesi.html" class="drawer-link">妖孽奇譚おみくじ</a></li>
+        <li><a href="frontpage.html" class="drawer-link">妖孽奇譚シリーズ一覧</a></li>
+        <li><a href="blockgame.html" class="drawer-link">和風ブロック崩し</a></li>
+        <li><a href="contact.html" class="drawer-link">お問い合わせ</a></li>
+      </ul></nav>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <div class="omikuji-app-wrapper">
+      <div class="omikuji-container">
+        <div class="omikuji-header">
+          <h1 class="omikuji-title">妖孽奇譚おみくじ</h1>
+          <p class="omikuji-subtitle">今日のあなたの運勢を占います</p>
+        </div>
+        <div class="omikuji-controls">
+          <button class="bgm-button" id="bgmButton">🎵 BGMを再生</button>
+          <button class="omikuji-button" id="omikujiButton">🎋 おみくじを引く</button>
+        </div>
+        <div class="sfx-ui">
+          <label class="sfx-toggle"><input type="checkbox" id="sfxToggle" checked> 効果音</label>
+          <small id="sfxNote" class="sfx-note">※おみくじを引くと短い効果音が鳴ります</small>
+        </div>
+        <div class="result-container" id="resultContainer">
+          <div class="fortune-level" id="fortuneLevel"></div>
+          <div class="character-image" id="characterImage"></div>
+          <div class="fortune-message" id="fortuneMessage"></div>
+          <div class="action-buttons">
+            <a id="shareUrlButton" href="#" rel="noopener">Xで結果をシェア</a>
+            <a id="bgmLinkButton" href="hybridbgm.html" rel="noopener">BGMページへ</a>
+            <a id="homeLinkButton" href="../index.html" rel="noopener">妖孽奇譚の世界へ</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer"><small>© 2026, <a href="../index.html">妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版</a></small></footer>
+
+  <script>
+    // ドロワーメニュー
+    (function(){
+      const burger = document.querySelector('.burger');
+      const drawer = document.getElementById('site-drawer');
+      const closeBtn = document.querySelector('.drawer-close');
+      if (!burger || !drawer) return;
+      burger.addEventListener('click', function(){ drawer.classList.toggle('is-open'); burger.setAttribute('aria-expanded', drawer.classList.contains('is-open')); });
+      closeBtn.addEventListener('click', function(){ drawer.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false'); });
+      document.addEventListener('click', function(e){ if (drawer.classList.contains('is-open') && !drawer.contains(e.target) && !burger.contains(e.target)){ drawer.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false'); }});
+    })();
+
+    // おみくじロジック（Liquidテンプレートから完全にピュアJS化）
+    document.addEventListener('DOMContentLoaded', () => {
+      const BGM_VOL = 0.15, SE_VOL = 0.15;
+
+      const CHARACTERS = [
+        {
+          name: "見習い陰陽師・慧",
+          image: "../assets/images/HO1.webp",
+          messages: {
+            "大吉": "今日はツイてるよ。まずは机をきれいにして、やりたい事を３つメモしよう。",
+            "中吉": "追い風だね。難しい課題は朝のうちに片づけるとサクッと終わるよ。",
+            "小吉": "小さな善行が実を結ぶ日。すきま時間にストレッチを３分すると、明日の体が軽くなるよ。",
+            "吉":   "ちょっと静かな日。水筒に好きなお茶を入れて、気分転換の一口を用意しておこう。",
+            "凶":   "流れが重いね。スマホを３０分早く置いて、温かい飲み物で休もう。窓をあけて、部屋に風を通すのもいいね。澱みが飛んでいくよ。"
+          }
+        },
+        {
+          name: "源氏の女武者・源頼光",
+          image: "../assets/images/HO2.webp",
+          messages: {
+            "大吉": "最高の風が来た！やりたかった事を１つ、今日中に始めてみな。",
+            "中吉": "いい流れだ。腕立て５回でもいい、体を動かしていい運にのっていこう。",
+            "小吉": "小さな逆風は一手の修正で吉に転ず。靴を磨いて気分を上げよう。風向きが変わるぞ。",
+            "吉":   "おまえの頑張りで、地面は固まった。5分だけでも、余裕をもって動くといいことがありそうだ。",
+            "凶":   "荒天だ。今日は無理するな。好きな漫画を読んで英気を養おう。"
+          }
+        },
+        {
+          name: "天皇の庶子・静乃",
+          image: "../assets/images/HO3.webp",
+          messages: {
+            "大吉": "福がころころ！友だちに『ありがとう』を１回多く言うと、もっと良い波にのれそうです！",
+            "中吉": "いい風が吹く日！やりたかったこと、気になっていたことに挑戦するとよさそうです。",
+            "小吉": "転んでも大丈夫。ハンカチで膝をポンと払って、深呼吸３回、ですよ。",
+            "吉":   "視野が広がる1日。いろんな人にお話を聞いてみると、よいことがありそうです。",
+            "凶":   "少しどんよりな1日。好きな香りのハンドクリームを塗って気分転換するといいですね。"
+          }
+        },
+        {
+          name: "管狐・コン",
+          image: "../assets/images/kon1.webp",
+          messages: {
+            "大吉": "素敵な一日になりそうだコン！良いニュースを友達に教えてあげると運が回るコン！",
+            "中吉": "いい感じだコン！予定を詰めすぎず、余裕をもって過ごすといいコン！",
+            "小吉": "ちょっと低空飛行な運だコン。スマホの画面を布でサッとひと拭きしてリフレッシュするといいコン！",
+            "吉":   "まずまずの運勢だコン。焦らず一歩ずつ進めば吉運が訪れるコン！",
+            "凶":   "注意と準備が必要な日だコン。手洗いうがいをしっかりすると、悪い運も流れていくコン！"
+          }
+        }
+      ];
+
+      // BGM
+      const bgmBtn = document.getElementById('bgmButton');
+      const bgm = new Audio();
+      bgm.src = "https://cdn.shopify.com/s/files/1/0755/7765/5533/files/omikuji.mp3?v=1755589693";
+      bgm.loop = true;
+      bgm.volume = BGM_VOL;
+
+      bgmBtn.addEventListener('click', async () => {
+        try {
+          if (bgm.paused) { await bgm.play(); bgmBtn.textContent='🔇 BGMを停止'; bgmBtn.classList.add('playing'); }
+          else { bgm.pause(); bgmBtn.textContent='🎵 BGMを再生'; bgmBtn.classList.remove('playing'); }
+        } catch(e){ console.warn('BGM blocked:', e); }
+      });
+
+      // SE
+      const se = new Audio();
+      se.src = "https://cdn.shopify.com/s/files/1/0755/7765/5533/files/omikuji.mp3?v=1755589693";
+      se.preload = 'auto';
+      se.volume = SE_VOL;
+
+      const sfxToggle = document.getElementById('sfxToggle');
+      let sfxOn = localStorage.getItem('sfxOn') !== '0';
+      sfxToggle.checked = sfxOn;
+      sfxToggle.addEventListener('change', () => { sfxOn = sfxToggle.checked; localStorage.setItem('sfxOn', sfxOn ? '1' : '0'); });
+
+      const WEIGHTS = { '大吉':10, '中吉':25, '小吉':25, '吉':25, '凶':15 };
+      function weightedPick(w){ const e=Object.entries(w),t=e.reduce((a,[,v])=>a+v,0); let r=Math.random()*t; for(const[k,v]of e){r-=v;if(r<=0)return k;} return '吉'; }
+
+      const drawBtn = document.getElementById('omikujiButton');
+      const box = document.getElementById('resultContainer');
+      const lv = document.getElementById('fortuneLevel');
+      const imgWrap = document.getElementById('characterImage');
+      const msg = document.getElementById('fortuneMessage');
+
+      drawBtn.addEventListener('click', async () => {
+        const level = weightedPick(WEIGHTS);
+        const char = CHARACTERS[Math.floor(Math.random()*CHARACTERS.length)];
+        lv.textContent = level;
+        imgWrap.innerHTML = `<img src="${char.image}" alt="${char.name}" crossorigin="anonymous">`;
+        msg.textContent = char.messages[level];
+        box.classList.add('show');
+        if (se.src && sfxOn) { try { se.currentTime = 0; await se.play(); } catch(_) {} }
+      });
+
+      // X共有
+      const shareBtn = document.getElementById('shareUrlButton');
+      if (shareBtn) {
+        shareBtn.onclick = (e) => {
+          if (!box.classList.contains('show')) { e.preventDefault(); alert('先におみくじを引いて結果を表示してください。'); return; }
+          const head = `妖孽奇譚おみくじ｜結果：${lv.textContent}（${imgWrap.querySelector('img')?.alt||''}）`;
+          const body = msg.textContent;
+          const text = `${head}\n${body} #妖孽奇譚`;
+          const pageUrl = location.href;
+          const intent = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text+'\n'+pageUrl)}&url=${encodeURIComponent(pageUrl)}`;
+          e.currentTarget.setAttribute('href', intent);
+          e.currentTarget.setAttribute('target', '_blank');
+        };
+      }
+    });
+  </script>
+</body>
+</html>

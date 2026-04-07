@@ -1,0 +1,67 @@
+/* ————————————————————————————————
+   collection-override.css
+   商品グリッドを均一なグリッドレイアウトに強制、和紙背景を適用
+———————————————————————————————— */
+
+/* 商品リスト（<ul id="product-grid">）をグリッド化 */
+#product-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)) !important;
+  gap: 1.5rem !important;
+}
+
+/* モバイル時は列幅を小さく */
+@media screen and (max-width: 749px) {
+  #product-grid {
+    grid-template-columns: repeat(auto-fill, minmax(10rem, 1fr)) !important;
+  }
+}
+
+/* 画像を必ず正方形にトリミング */
+#product-grid .product-card__image {
+  aspect-ratio: 1 / 1 !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+/* カード内テキストやボタンを下揃えに */
+#product-grid .product-card__content {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+}
+
+/* テンプレートCSSの float／widthをリセット */
+#product-grid .grid__item {
+  float: none !important;
+  width: auto !important;
+}
+
+/* ——————————————
+   和紙テクスチャを親コンテナ（<div id="ProductGridContainer">）に適用
+———————————————— */
+#ProductGridContainer {
+  background-image: url('/assets/washi-texture2.webp') !important;
+  background-repeat: repeat !important;
+}
+/* ————————————————————————
+   #1. ローディングオーバーレイを非表示に
+———————————————————————————————— */
+#ProductGridContainer .loading-overlay {
+  display: none !important;
+}
+
+/* ————————————————————————
+   #2. グリッド直下の .collection コンテナ背景を透明に
+———————————————————————————————— */
+#ProductGridContainer .collection {
+  background-color: transparent !important;
+}
+
+/* ————————————————————————
+   #3. もし .page-width が白地を持っていたら透明に
+———————————————————————————————— */
+#ProductGridContainer .page-width {
+  background-color: transparent !important;
+}
+

@@ -1,0 +1,456 @@
+/* Home-single-column CSS — 妖孽奇譚 外伝 〜橋の怪〜 */
+/* Namespace: hs-* | Compatible with Dawn 11+ */
+
+/* ── Theme tokens ───────────────────────────── */
+:root{
+  --color-primary:    #214d77;   /* 深藍 */
+  --color-accent:     #5175a8;   /* 明るめ藍 (CTA) */
+  --color-bg:         #f9f9fb;   /* 背景薄灰 */
+  --color-hero-title: #d8b864;   /* 薄ゴールド */
+  --color-hero-lead:  #ffffff;   /* 白 */
+}
+
+/* ── Layout Wrapper ─────────────────────────── */
+.hs-container{
+  max-width: 768px;
+  margin-inline: auto;
+  padding: 2rem 1rem;
+  background: var(--color-bg);
+}
+
+/* ── Hero Section ───────────────────────────── */
+.hs-hero{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: var(--color-hero-lead);
+  overflow: hidden;
+}
+.hs-hero .hs-title{
+  position: absolute; top: 1.5rem; left: 1rem;
+  margin: 0;
+  color: var(--color-hero-title);
+  font-size: clamp(2rem, 5vw, 3rem);
+  line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0,0,0,.6);
+  z-index: 1;
+}
+.hs-hero .hs-lead{
+  position: absolute; top: 5rem; left: 1rem;
+  margin: 0;
+  font-size: clamp(1.125rem, 2.5vw, 1.5rem);
+  text-shadow: 0 2px 4px rgba(0,0,0,.6);
+  z-index: 1;
+}
+.hs-hero .btn-primary{
+  position: absolute; right: 2rem; bottom: 2rem;
+  z-index: 1;
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  font-size: 1.125rem;
+  background-color: var(--color-accent);
+  color: #fff !important;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  text-shadow: none;
+}
+
+/* ── Rich sections ──────────────────────────── */
+.hs-section{ padding: 1.5rem 0; }
+
+/* ── Mobile(≤640px) Hero 微調整 ─────────────── */
+@media (max-width: 640px){
+  .hs-hero .hs-title{
+    font-size: clamp(1.5rem, 6vw, 2rem);
+    top: 1rem; left: 0.75rem;
+  }
+  .hs-hero .hs-lead{
+    font-size: clamp(1rem, 4vw, 1.25rem);
+    top: calc(1rem + 2rem + 0.5rem);
+    left: 0.75rem;
+  }
+  .hs-hero .btn-primary{
+    right: 1rem; bottom: 1rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* ── Home bottom menu (hs-menu-*) ───────────── */
+
+/* 最初の行の上に余白 */
+.hs-menu-item:first-of-type{ margin-top: 2rem; }
+
+/* 行リンク（基準値：後段のメディアクエリで上書き） */
+.hs-menu-item{
+  display: grid;
+  grid-template-columns: 1fr auto auto; /* 左:タイトル / 右:補足 / 矢印 */
+  align-items: baseline;
+  gap: .75rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+  text-decoration: none;
+  background: #fff;
+  border-radius: 10px;
+  margin-bottom: .5rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,.04);
+}
+.hs-menu-item:hover,
+.hs-menu-item:focus-visible{
+  background: #fcfbf7;
+  outline: 2px solid rgba(216,184,100,.25);
+  outline-offset: 2px;
+}
+
+/* 左：タイトル（基準） */
+.hs-menu-title{
+  color: #1b2f4a;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.6vw, 1.125rem); /* 16→18px */
+  line-height: 1.5;
+}
+
+/* 右：補足（基準。色/太さは最終値に統合） */
+.hs-menu-desc{
+  color: #c5a03a;      /* 濃い金：視認性↑ */
+  font-weight: 700;
+  opacity: 1;
+  font-size: clamp(.95rem, 2.3vw, 1.0625rem); /* 15→17px */
+  white-space: nowrap;
+  letter-spacing: .01em;
+}
+.hs-menu-item:hover .hs-menu-desc{ text-decoration: underline; }
+
+/* 矢印 */
+.hs-menu-arrow{
+  color: var(--color-hero-title, #d8b864);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* 見出しと補足 */
+.hs-menu{ margin-top: 2rem; }
+.hs-menu-heading{
+  margin: 0 0 .75rem 0;
+  padding: 0 .25rem .5rem;
+  border-bottom: 1px solid rgba(0,0,0,.08);
+}
+.hs-menu-h2{
+  display: flex; align-items: baseline; gap: .5rem;
+  margin: 0 0 .25rem 0;
+  font-size: clamp(1.125rem, 2.6vw, 1.25rem); /* 18→20px */
+  line-height: 1.4;
+  color: #1b2f4a;
+  font-weight: 700;
+}
+.hs-menu-symbol{ color: var(--color-hero-title, #d8b864); font-size: 1.1em; line-height: 1; }
+.hs-menu-note{ margin: 0; color: #5a6a7a; font-size: .95rem; line-height: 1.6; }
+
+/* アイコン（任意） */
+.hs-menu-emoji{ font-size: 1.25rem; line-height: 1; margin-right: .25rem; }
+
+/* wrapper内の最初の行の余白調整 */
+.hs-menu > .hs-menu-item:first-child{ margin-top: .5rem; }
+
+/* ── Mobile(≤640px)：補足を下段へ ─────────── */
+@media (max-width: 640px){
+  .hs-menu-item{
+    grid-template-columns: 1fr auto; /* タイトル + 矢印 */
+    row-gap: .25rem;
+    padding: 1rem;
+  }
+  .hs-menu-desc{
+    grid-column: 1 / -1;  /* 補足を下段に */
+    font-size: 1rem;
+    opacity: .9;
+  }
+}
+
+/* ── Mobile(≤480px)：視認性強化 ───────────── */
+@media (max-width: 480px){
+  .hs-menu-h2{   font-size: 1.4375rem; line-height: 1.5; }  /* 23px */
+  .hs-menu-note{ font-size: 1.125rem; line-height: 1.6; }  /* 18px */
+
+  .hs-menu-item{
+    min-height: 60px;
+    padding: 18px 20px;
+    border-radius: 14px;
+    gap: .4rem;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    position: relative;
+    padding-right: 2.5rem; /* 右矢印の逃げ */
+  }
+  .hs-menu-title{
+    font-size: 1.375rem;   /* 22px */
+    line-height: 1.55;
+    font-weight: 800;
+    flex: 1 1 100%;
+  }
+  .hs-menu-desc{
+    display: block;
+    font-size: 1.25rem;    /* 20px */
+    line-height: 1.65;
+    color: #c59b2a;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    hyphens: auto;
+    margin-top: .2rem;
+    flex: 1 1 100%;
+  }
+  .hs-menu-arrow{
+    position: absolute; right: 12px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 1.25rem; /* 20px */
+    line-height: 1;
+  }
+  .hs-menu a[href*="/contact"] .hs-menu-desc{
+    color: #214d77; font-weight: 800;
+  }
+}
+
+/* ── 極小端末(≤360px) ───────────────────────── */
+@media (max-width: 360px){
+  .hs-menu-title{ font-size: 1.3125rem; }  /* 21px */
+  .hs-menu-desc { font-size: 1.25rem; }    /* 20px */
+}
+
+/* ── Desktop(≥768px)：視認性 + 右寄せレイアウト ───── */
+@media (min-width: 768px){
+
+  /* 見出し */
+  .hs-menu-h2{
+    font-size: clamp(1.375rem, 0.5vw + 1.1rem, 1.625rem); /* 22–26px */
+    line-height: 1.5; letter-spacing: .01em;
+  }
+  .hs-menu-note{
+    font-size: clamp(1.0625rem, 0.2vw + 0.95rem, 1.125rem); /* 17–18px */
+    line-height: 1.6;
+  }
+
+  /* 行カード */
+  .hs-menu-item{
+    display: flex;                 /* 右寄せ配置用に flex に変更 */
+    align-items: center;
+    flex-wrap: nowrap;
+    min-height: 60px;
+    padding: 16px 20px;
+    border-radius: 14px;
+    gap: .35rem;
+    position: relative;
+    padding-right: 2.5rem;         /* 右矢印の逃げ */
+  }
+
+  /* 左：タイトル（1行固定） */
+  .hs-menu-title{
+    font-size: clamp(1.25rem, 0.3vw + 1.1rem, 1.375rem); /* 20–22px */
+    line-height: 1.55;
+    font-weight: 800;
+    letter-spacing: .01em;
+    white-space: nowrap;
+    flex: 0 0 auto;
+    margin-right: 1rem;
+  }
+
+  /* 右：説明（右端に寄せ、指定幅で折返す） */
+  .hs-menu-desc{
+    font-size: clamp(1.125rem, 0.3vw + 1rem, 1.25rem);   /* 18–20px */
+    line-height: 1.65;
+    color: #c5a03a;
+    font-weight: 700;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    word-break: normal;
+    hyphens: auto;
+    margin-top: .15rem;
+
+    margin-left: auto;                                  /* 右端へ */
+    text-align: left;
+    flex: 0 1 clamp(320px, 55%, 640px);                 /* 幅を可変指定 */
+    min-width: 0;                                       /* 折返し保険 */
+  }
+
+  /* 矢印 */
+  .hs-menu-arrow{
+    position: absolute; right: 14px; top: 50%;
+    transform: translateY(-50%);
+    font-size: clamp(1.125rem, 0.25vw + 1rem, 1.375rem); /* 18–22px */
+    line-height: 1;
+  }
+
+  /* 重要導線 */
+  .hs-menu a[href*="/contact"] .hs-menu-desc{
+    color: #214d77; font-weight: 800;
+  }
+}
+
+/* ── Wide(≥1200px)：余白微増 ─────────────────── */
+@media (min-width: 1200px){
+  .hs-menu-item{ padding: 18px 24px; }
+}
+
+
+/* === Murder Mystery Explainer pill (scoped for home-single-column) === */
+.hs-container .bgm-terms--inline { position: relative; }
+
+.hs-container .bgm-terms__pill{
+  list-style:none; cursor:pointer; display:inline-flex; align-items:center; gap:.5rem;
+  padding:.55rem 1rem; border-radius:999px;
+  border:1px solid #e6d9b7; color:#0d2336; background:rgba(255,255,255,.82);
+  font-weight:700;
+}
+.hs-container .bgm-terms__pill::-webkit-details-marker{ display:none; }
+.hs-container .bgm-terms__pill::after{
+  content:""; width:.45rem; height:.45rem;
+  border-right:2px solid currentColor; border-bottom:2px solid currentColor;
+  transform:rotate(45deg); margin-left:.25rem; transition:transform .2s ease;
+}
+.hs-container .bgm-terms--inline[open] .bgm-terms__pill::after{ transform:rotate(-135deg); }
+
+.hs-container .bgm-terms__icon{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:1.05rem; height:1.05rem; border-radius:50%;
+  border:2px solid #0d2336; font:700 .75rem/1 system-ui,-apple-system,"Segoe UI",sans-serif;
+  margin-right:.35rem;
+}
+.hs-container .bgm-terms__meta{
+  margin-left:.5rem; max-width:36ch; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  font-weight:600; font-size:.9rem; color:#0d2336; opacity:.8;
+}
+@media (max-width:1024px){ .hs-container .bgm-terms__meta{ display:none; } }
+
+.hs-container .bgm-terms__popover{
+  position:absolute; right:0; top:calc(100% + .4rem);
+  width:min(560px,90vw);
+  border:1px solid #20324d; border-radius:14px;
+  background:linear-gradient(0deg, rgba(12,28,51,.92), rgba(12,28,51,.92));
+  padding:.8rem .9rem; box-shadow:0 10px 24px rgba(0,0,0,.25); z-index:20;
+  color:#e8eef9;
+}
+@media (max-width:720px){
+  .hs-container .bgm-terms__popover{ position:static; width:100%; margin-top:.35rem; }
+}
+.hs-container .bgm-terms__digest{ font-size:.9rem; opacity:.95; margin:.2rem 0 .6rem; }
+.hs-container .bgm-terms__points{ margin:.1rem 0 .7rem; padding-left:1.1rem; }
+.hs-container .bgm-terms__points li{ margin:.2rem 0; }
+.hs-container .bgm-terms__links{ display:flex; flex-wrap:wrap; gap:.5rem; }
+.hs-container .bgm-terms__links .button--ghost{
+  border:1px solid #ffeb9c; color:#ffeb9c; background:transparent; border-radius:10px; padding:.42rem .75rem;
+}
+.hs-container .bgm-terms__links .button--ghost:hover{ background:rgba(255,235,156,.08); }
+
+.hs-container .bgm-terms__close{
+  position:absolute; top:.45rem; right:.5rem;
+  width:1.75rem; height:1.75rem; border-radius:999px;
+  background:transparent; border:1px solid #ffeb9c; color:#ffeb9c;
+  line-height:1; font-weight:700; cursor:pointer;
+}
+.hs-container .bgm-terms__close:hover{ background:rgba(255,235,156,.12); }
+.hs-container .bgm-terms__close:focus{ outline:2px solid #ffeb9c; outline-offset:2px; }
+
+/* 配置（右寄せ） */
+.hs-container .intro-explainer-row{
+  display:flex; justify-content:flex-end; gap:.75rem; margin:.35rem 0 .5rem;
+}
+@media (max-width:720px){
+  .hs-container .intro-explainer-row{ justify-content:flex-start; }
+}
+
+
+/* === move pill visually out of hero === */
+.hs-container .intro-explainer-row{
+  /* ヒーローから十分離す */
+  margin: .4rem 0 1.2rem;   /* ← 下マージンを増やす */
+  position: relative;
+  z-index: 5;               /* ヒーローの装飾線より前面に固定 */
+}
+
+/* ピルの台座を少し強めに（画像にかぶっても読めるように） */
+.hs-container .bgm-terms__pill{
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 2px 8px rgba(0,0,0,.08);
+  border: 1px solid #e6d9b7;
+}
+
+/* （任意）さらに余白を取りたい場合はヒーローの上に薄いスペーサーを置く */
+.hs-container .intro-explainer-row::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:-12px; height:12px;
+  background: var(--color-bg);   /* セクションの地の色 */
+}
+
+
+/* === MM explainer: ヒーローと確実に離す & 視認性を上げる ================== */
+.hs-container .intro-explainer-row{
+  /* ヒーローと十分に距離を取る */
+  margin: .6rem 0 1.9rem;
+  position: relative;
+  z-index: 5;
+}
+
+/* ピルの台座（白ガラス＋うっすら影） */
+.hs-container .bgm-terms__pill{
+  background: rgba(255,255,255,.92);
+  box-shadow: 0 2px 10px rgba(0,0,0,.08);
+  border: 1px solid #e6d9b7;
+}
+
+/* ピル直下に“地の色”の帯を敷いて、画像がのぞかないようにする */
+.hs-container .intro-explainer-row::after{
+  content:"";
+  position:absolute;
+  left:0; right:0; bottom:-16px; height:16px;  /* 帯の高さを調整 */
+  background: var(--color-bg);
+}
+
+/* ヒーロー自体にも上マージンを付与（視覚的な重なりを確実に回避） */
+.hs-container .hs-hero{ margin-top: 1.4rem; }
+@media (min-width: 768px){
+  .hs-container .hs-hero{ margin-top: 1.6rem; }
+}
+
+/* === ポップオーバー内の文字組（ご要望反映） ============================== */
+/* 1行目（最重要の要約）はやや大きく・太く・白でくっきり */
+.hs-container .bgm-terms__digest{
+  font-size: 1.125rem;      /* 18px 相当：他の本文より少し大きく */
+  font-weight: 700;
+  color:#fff;
+  opacity: 1;
+  margin: .1rem 0 .8rem;
+}
+
+/* 箇条書きは読みやすい行間とサイズに */
+.hs-container .bgm-terms__points{
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+.hs-container .bgm-terms__points li{ margin: .35rem 0; }
+
+/* 利用規約リンク行は削除済みだが、万一残っていても非表示に */
+.hs-container .bgm-terms__links{ display:none !important; }
+
+
+/* === MM explainer: sub-headings / paragraphs / ordered list ============== */
+.hs-container .mmx-sub{
+  margin: .4rem 0 .25rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #ffeb9c;           /* BGMポップ同系色で見やすく */
+}
+.hs-container .mmx-p{
+  margin: 0 0 .6rem;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #e8eef9;
+}
+.hs-container .mmx-ol{
+  margin: .2rem 0 .8rem 1.2rem;
+  padding: 0;
+  color: #e8eef9;
+}
+.hs-container .mmx-ol li{ margin: .25rem 0; line-height: 1.9; }

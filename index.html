@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>彩月のマーダーミステリー出版　『妖孽奇譚』公式ホームページ – 妖孽奇譚 公式サイト</title>
+  <meta name="description" content="平安時代×マーダーミステリー『妖孽奇譚』の公式サイト。 物語と謎解きの快感を、あなたの端末で。 お知らせや特典情報も更新中。">
+
+  <!-- OGP -->
+  <meta property="og:site_name" content="妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版">
+  <meta property="og:url" content="https://aduki-syuppan.com/">
+  <meta property="og:title" content="彩月のマーダーミステリー出版　『妖孽奇譚』公式ホームページ">
+  <meta property="og:type" content="website">
+  <meta property="og:description" content="平安時代×マーダーミステリー『妖孽奇譚』の公式サイト。 物語と謎解きの快感を、あなたの端末で。 お知らせや特典情報も更新中。">
+  <meta property="og:image" content="https://aduki-syuppan.com/assets/images/1_hero.webp">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <!-- フォント -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/hero-heian.css">
+  <link rel="stylesheet" href="css/home-single-column.css">
+  <link rel="stylesheet" href="css/section-footer.css">
+  <link rel="stylesheet" href="css/component-list-payment.css">
+  <link rel="stylesheet" href="css/component-list-menu.css">
+  <link rel="stylesheet" href="css/component-newsletter.css">
+
+  <style>
+    :root {
+      --font-body-family: 'Noto Serif JP', serif;
+      --font-heading-family: 'Noto Serif JP', serif;
+      --font-body-scale: 1.0;
+      --font-body-weight: 400;
+      --font-body-style: normal;
+      --font-heading-weight: 700;
+      --color-foreground: 18,18,18;
+      --color-background: 255,255,255;
+      --color-shadow: 18,18,18;
+      --color-button: 18,18,18;
+      --color-button-text: 255,255,255;
+      --page-width: 120rem;
+      --text-boxes-radius: 0px;
+      --text-boxes-shadow-horizontal-offset: 0px;
+      --text-boxes-shadow-vertical-offset: 4px;
+      --text-boxes-shadow-blur-radius: 5px;
+      --text-boxes-shadow-opacity: 0.0;
+      --spacing-sections-desktop: 0px;
+      --spacing-sections-mobile: 0px;
+    }
+    *, *::before, *::after { box-sizing: inherit; }
+    html { box-sizing: border-box; font-size: calc(var(--font-body-scale) * 62.5%); height: 100%; }
+    body {
+      display: grid; grid-template-rows: auto auto 1fr auto; grid-template-columns: 100%;
+      min-height: 100%; margin: 0;
+      font-size: 1.5rem; letter-spacing: 0.06rem;
+      line-height: calc(1 + 0.8 / var(--font-body-scale));
+      font-family: var(--font-body-family);
+      color: rgba(var(--color-foreground), 0.75);
+      background: url("assets/images/washi-texture2.webp") center/600px repeat;
+    }
+    @media screen and (min-width: 750px) { body { font-size: 1.6rem; } }
+    @media (max-width: 768px) { body { background-size: 400px; } }
+
+    /* 申し込みフローのスタイル */
+    .bookingflow {
+      --arrow-fill: #111;
+      --arrow-stroke: #d8c079;
+      margin: 2rem 0 3rem;
+    }
+    .bookingflow .section-title { margin: 0 0 1.25rem; }
+    .bookingflow__box {
+      border-radius: var(--text-boxes-radius);
+      background: var(--color-background, #fff);
+      padding: 1.25rem 1.25rem 1.5rem;
+    }
+    .bookingflow .flowlist { counter-reset: step; list-style: none; margin: 0 0 1.25rem; padding: 0; }
+    .bookingflow .flowlist li {
+      counter-increment: step; display: flex; gap: .75rem; align-items: flex-start; margin: 1rem 0; position: relative;
+    }
+    .bookingflow .flowlist li::before {
+      content: counter(step); flex: 0 0 1.8rem; height: 1.8rem; line-height: 1.8rem; text-align: center; border-radius: 999px;
+      background: rgba(var(--color-foreground), .06); font-weight: 700;
+    }
+    .bookingflow .flowtext { min-width: 0; }
+    .bookingflow .flowtext strong { font-weight: 700; }
+    .bookingflow .flow-next {
+      text-align: center; margin: .35rem 0 .7rem 2.6rem; font-size: 24px; line-height: 1;
+      font-weight: 900; color: var(--arrow-fill); opacity: 1; letter-spacing: .02em;
+      -webkit-text-stroke: 1px var(--arrow-stroke);
+      text-shadow: 0 0 0 var(--arrow-stroke), 0 1px 0 var(--arrow-stroke), 1px 0 0 var(--arrow-stroke),
+        0 -1px 0 var(--arrow-stroke), -1px 0 0 var(--arrow-stroke);
+    }
+    .bookingflow .bookingflow__inline-btn {
+      --cta: #F08C2B;
+      display: inline-block; margin-left: .5rem; padding: .4em .9em;
+      border: 2px solid var(--cta); border-radius: .55rem;
+      background: transparent; color: var(--cta); font-weight: 700;
+      text-decoration: none; line-height: 1.2; letter-spacing: .02em;
+      transition: transform .08s ease, background-color .12s ease, color .12s ease;
+    }
+    .bookingflow .bookingflow__inline-btn:hover {
+      background: var(--cta); color: #fff; transform: translateY(-1px);
+    }
+    .bookingflow details.faq { margin-top: 1rem; }
+    .bookingflow details.faq summary { cursor: pointer; font-weight: 600; }
+    @media (max-width: 640px) {
+      .bookingflow .flowlist li { margin: .9rem 0; }
+      .bookingflow .flow-next { font-size: 20px; margin-left: 2.4rem; }
+    }
+
+    /* フッター */
+    .footer { margin-top: 75px; }
+    .footer__content-bottom-wrapper { max-width: 1200px; margin: 0 auto; padding: 1rem; text-align: center; }
+    .footer__copyright { font-size: .85rem; color: rgba(var(--color-foreground), .5); }
+    .policies { list-style: none; padding: 0; display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin-top: .5rem; }
+    .policies a { color: rgba(var(--color-foreground), .5); text-decoration: none; font-size: .8rem; }
+    .policies a:hover { text-decoration: underline; }
+    .list-payment { list-style: none; padding: 0; display: flex; justify-content: center; gap: .5rem; margin: 1rem 0; }
+    .footer__payment { text-align: center; }
+
+    /* ヒーロー画像の調整 */
+    .hero-heian__main { margin: 0 auto; }
+    .hero-heian__main img { width: 100%; height: auto !important; max-height: 70vh !important; object-fit: contain !important; }
+    @media (max-width: 767px) { .hero-heian__main img { max-height: 55vh !important; } }
+  </style>
+</head>
+
+<body class="gradient">
+  <!-- ===== ヘッダー ===== -->
+  <header class="header-heian" role="banner">
+    <div class="header-inner">
+      <a href="/" class="header-logo" aria-label="ホーム"></a>
+      <div class="header-title">彩月のマーダーミステリー出版</div>
+      <div class="header-actions">
+        <a href="/" class="home" aria-label="ホーム">
+          <span class="home-ico" aria-hidden="true">🏠</span>
+          <span class="nav-label">ホーム</span>
+        </a>
+        <button class="burger" aria-label="メニューを開く" aria-controls="site-drawer" aria-expanded="false" type="button">
+          <span class="burger-ico" aria-hidden="true">≡</span>
+          <span class="nav-label">メニュー</span>
+        </button>
+      </div>
+    </div>
+    <!-- ドロワーメニュー -->
+    <div class="drawer" id="site-drawer">
+      <button class="drawer-close" aria-label="閉じる" type="button">✕</button>
+      <nav aria-label="サイトメニュー">
+        <ul class="drawer-nav">
+          <li><a href="pages/about.html" class="drawer-link">著者紹介</a></li>
+          <li><a href="pages/hybridbgm.html" class="drawer-link">無料BGMライブラリ</a></li>
+          <li><a href="pages/undamesi.html" class="drawer-link">妖孽奇譚おみくじ</a></li>
+          <li><a href="pages/frontpage.html" class="drawer-link">妖孽奇譚シリーズ一覧</a></li>
+          <li><a href="pages/blockgame.html" class="drawer-link">和風ブロック崩し</a></li>
+          <li><a href="pages/contact.html" class="drawer-link">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ===== メインコンテンツ ===== -->
+  <main id="MainContent" role="main">
+    <section class="hs-container">
+
+      <!-- タイトル -->
+      <section class="hs-section">
+        <h1>平安協力型マーダーミステリー　妖孽奇譚（ようげつきたん）の世界へようこそ</h1>
+      </section>
+
+      <!-- マーダーミステリーって何？ (折りたたみ説明) -->
+      <div class="intro-explainer-row">
+        <details class="bgm-terms--inline" data-mm-explainer>
+          <summary class="bgm-terms__pill">
+            <span class="bgm-terms__icon">?</span>
+            マーダーミステリーって何？
+            <span class="bgm-terms__meta">初めてでも3分でわかる</span>
+          </summary>
+          <div class="bgm-terms__popover">
+            <button class="bgm-terms__close" type="button" aria-label="閉じる" onclick="this.closest('details').removeAttribute('open')">×</button>
+            <p class="bgm-terms__digest">物語の登場人物になりきって、仲間と手がかりを読み合いながら事件の真相を解き明かす推理ゲームです。</p>
+            <h4 class="mmx-sub">パート1：マーダーミステリーって何？</h4>
+            <p class="mmx-p">物語の登場人物になりきって、仲間と手がかりを読み合いながら事件の真相を解き明かす推理ゲームです。映画や小説を「観る」のではなく、「体験する」感覚。自分の推理が当たったときの興奮、仲間との会話から見えてくる新しい発見が、このゲームの醍醐味です。</p>
+            <h4 class="mmx-sub">パート2：協力型の特徴</h4>
+            <p class="mmx-p">このシナリオは全員が同じゴールを目指す「協力型」。犯人役や裏切り者はいないので、3人で力を合わせて謎に挑めます。「これじゃない!?」「そうか、気づかなかった！」そんな会話の中で生まれる一体感。友達とおしゃべりを楽しむ感覚で安心して遊べます。</p>
+            <h4 class="mmx-sub">パート3：このマーダーミステリーの遊び方</h4>
+            <p class="mmx-p">Discordというオンライン通話アプリと、ココフォリアというブラウザアプリを使います。</p>
+            <ol class="mmx-ol">
+              <li>参加申し込み：メンバー3人を集めて申し込み。日程を決めて、お支払い</li>
+              <li>準備：当日までに配られた資料PDFをあらかじめ読む</li>
+              <li>当日：ルール説明のあとシナリオ開始。仲間とおしゃべりしながら、資料や新情報をもとにみんなで推理する</li>
+            </ol>
+            <p class="mmx-p">会話と想像力があれば、どこからでも物語の世界に飛び込めます。</p>
+          </div>
+        </details>
+      </div>
+
+      <!-- ヒーロー画像 -->
+      <section class="hs-hero" role="banner" style="background-image:url(assets/images/5843924c0c68d8550df54a607d0733df_2000x_v_1754035098.webp.jpeg);">
+        <h1 class="hs-title">全員の勝利条件同じです</h1>
+        <p class="hs-lead">仲間と一緒に、美しい平安の都で謎を解き明かす —— そんな体験をしたい人はほかにいませんか？</p>
+        <a href="pages/frontpage.html" class="btn-primary" aria-label="今すぐ詳細を見る">今すぐ詳細を見る</a>
+      </section>
+
+      <!-- 長文セクション：なぜ協力型？ -->
+      <section class="hs-section">
+        <h2>遊んだマダミス、楽しかったはずなのに、なんだかもやもやが残っていませんか？</h2>
+        <p>マダミスは好き。でも最近、なんか気が重い。<br>推理より駆け引き、協力より対立。終わった後の微妙な空気。<br><br>「これって私だけなのかな？」 —— いいえ、あなただけじゃない。<br><br>本当は、みんなでキャッキャしたい。「その推理すごい！」「この情報、つながったんじゃない！？」ってワイワイ盛り上がりたい。<br><br>この前、友達が言った。「正直、対立（PVP）したり、駆け引きのあるマダミスはもう遊びたくないんだ」って。<br><br>ああ、みんな同じことを感じていたんだ。だから作りました。<strong>全員が仲間の協力型マーダーミステリー</strong>を。<br><br>「よし、詳しいことは後回しにして、今は情報整理をしよう！」<br>「えっ、今なにかごまかしたよね！」<br>「ん？何かあったか？ ははは、私にはなにも見えてないぞ！！」<br>「ちょっとぉ！」<br><br>こんな明るい掛け合いが、平安京の街中で繰り広げられる。平安京を舞台に、仲間と一緒に事件の真相を解き明かす。犯人役は誰もいない。全員が探偵として、主人公として、それぞれの視点を重ね合わせていく。<br><br>「あの人のお話、事件現場の○○のことを示していたのではないでしょうか」<br>「なるほど、じゃああの夜、ここで起こったことは……！」<br><br>会話が進むほど物語が動き出す。バラバラだった情報が一気につながる瞬間。みんなで同時に「わかった！」を味わえる瞬間が、協力型シナリオの醍醐味。<br><br>キャラクター全員の視点が集まって、初めて真相が見える設計。だから、仲間が困ったときに「ここは私の出番だね！」と言える瞬間が必ずくる。<br><br>誰一人お客さんじゃない。<strong>犯人役ゼロ、対立ゼロ —— 全員が主人公の協力型平安ミステリー。</strong></p>
+      </section>
+
+      <!-- 申し込みフロー -->
+      <section class="hs-section bookingflow" id="how-to-book">
+        <h2 class="section-title h2">はじめてでも3分で予約できます</h2>
+        <div class="bookingflow__box">
+          <ol class="flowlist">
+            <li><div class="flowtext"><strong>申し込みフォームに必要事項を入力</strong><br>
+              <p>フォーム送信後、控えのメールが届きます。</p>
+              <a href="https://ssl.form-mailer.jp/fms/4f057064848303" class="bookingflow__inline-btn">申し込みフォームはこちら</a></div>
+            </li>
+            <div class="flow-next" aria-hidden="true">↓</div>
+            <li><div class="flowtext"><strong>作者から日程のご案内メール</strong><br>
+              <p><em>support@aduki-syuppan.com</em> よりご連絡します。ご希望日やカレンダー情報をご返信ください。</p></div>
+            </li>
+            <div class="flow-next" aria-hidden="true">↓</div>
+            <li><div class="flowtext"><strong>メンバーが揃ったら Discord サーバーへご案内</strong><br>
+              <p>以降の連絡は Discord 上で行います。</p></div>
+            </li>
+            <div class="flow-next" aria-hidden="true">↓</div>
+            <li><div class="flowtext"><strong>期日までにお振り込み</strong><br>
+              <p>振込先は Discord でご案内します。<u>お支払い前であればキャンセル可能</u>です。</p></div>
+            </li>
+            <div class="flow-next" aria-hidden="true">↓</div>
+            <li><div class="flowtext"><strong>お支払い後、PL同士で配役決め→作者へ連絡</strong></div></li>
+            <div class="flow-next" aria-hidden="true">↓</div>
+            <li><div class="flowtext"><strong>事前資料を配布</strong><br>
+              <p>当日までに各自読み込みをお願いします。</p></div>
+            </li>
+            <div class="flow-next" aria-hidden="true">↓</div>
+            <li><div class="flowtext"><strong>当日、集合 → シナリオ開始</strong></div></li>
+          </ol>
+          <details class="faq">
+            <summary>よくある質問（抜粋）</summary>
+            <div style="margin-top:.5rem;">
+              <p><strong>Q. 日程はどのくらい先まで予約できますか？</strong><br>空き状況に応じてご案内します。まずはフォームから希望日をご送信ください。</p>
+              <p><strong>Q. メンバーがまだ揃っていません。</strong><br>申込後に募集でも大丈夫です。お支払い前まではキャンセル可能です。</p>
+              <p><strong>Q. 外伝『橋の怪』を購入しました。作者GM卓を申し込みたいです。</strong><br>
+                <a href="pages/contact.html">外伝『橋の怪』をご購入済みで、作者GM卓をご希望の方はこちら</a> から、フォーム項目で「作者GM申し込みについて」を選択して、お問い合わせください。</p>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <!-- キャラクター紹介 -->
+      <section class="hs-section"><p>★あなたに演じてもらうキャラクター３名を紹介します★</p></section>
+
+      <section class="hs-section"><p>PC1.姫氏原　慧</p></section>
+      <section class="hs-hero" role="banner" style="background-image:url(assets/images/1_231598a3-b666-44a0-a2aa-ffd95644ab5c_2000x_v_1754036399.webp.jpeg);"></section>
+
+      <section class="hs-section"><p>PC2.源　頼光</p></section>
+      <section class="hs-hero" role="banner" style="background-image:url(assets/images/2_1_2000x_v_1754197951.webp.jpeg);"></section>
+
+      <section class="hs-section"><p>PC3.静乃</p></section>
+      <section class="hs-hero" role="banner" style="background-image:url(assets/images/3_1_2000x_v_1754197951.webp.jpeg);"></section>
+
+      <!-- シリーズ紹介 -->
+      <section class="hs-section">
+        <p><strong>仲間と絆を深めたいあなたへ贈る、雅な世界</strong><br><br>月の光に照らされ、家屋の陰影が広がるなかで展開されるシリーズ。<br><br>第一夜の冒頭から、全員が手探りで進める設計なので、自分だけ置いてきぼりになるという不安を抱かずに、仲間と一緒に謎を紐解けます。</p>
+        <p>読み合わせたっぷりなので、自分が本当にキャラクターとして平安時代にいるかのようなリアリティを体験できます。<br>終わった後、「時間があっという間だった！」「また遊ぼうね！」そんなセリフが飛び出すマーダーミステリー。<br><br>さあ、あなたも一緒に、みんなが待つ平安京へいこう</p>
+      </section>
+
+      <!-- ヒーロー画像2 -->
+      <section class="hs-hero" role="banner" style="background-image:url(assets/images/1_2000x_v_1754034074.webp.jpeg);">
+        <a href="pages/frontpage.html" class="btn-primary" aria-label="今すぐ詳細を見る">今すぐ詳細を見る</a>
+      </section>
+
+      <!-- シリーズ別販売プラン -->
+      <section class="hs-section">
+        <h3>シリーズ別 販売プラン</h3>
+        <p><strong>第一夜『首狩られし女』</strong></p>
+        <ul><li>【作者GM卓限定（有償公演）】 シナリオの単体販売はありません。GM演出は作者のみが担当します。</li></ul>
+        <p><strong>第一夜外伝『橋の怪』</strong></p>
+        <ul><li>【シナリオ販売中】 参加者全員がシナリオをご購入いただくと、作者GMによるセッションが可能です。</li></ul>
+        <p><strong>第二夜以降</strong><br>※鋭意制作中<br>※続報を随時お届け予定</p>
+      </section>
+
+      <section class="hs-section"></section>
+
+      <!-- サイトメニュー -->
+      <nav class="hs-menu" aria-label="サイトメニュー">
+        <div class="hs-menu-heading">
+          <h2 class="hs-menu-h2">
+            <span class="hs-menu-symbol" aria-hidden="true">*</span>
+            サイトメニュー
+          </h2>
+          <p class="hs-menu-note">各ページへのご案内</p>
+        </div>
+        <a class="hs-menu-item" href="pages/about.html">
+          <span class="hs-menu-title">著者紹介</span>
+          <span class="hs-menu-desc">著者の経歴、自己紹介はこちらへ</span>
+          <span class="hs-menu-arrow" aria-hidden="true">›</span>
+        </a>
+        <a class="hs-menu-item" href="pages/frontpage.html">
+          <span class="hs-menu-title">妖孽奇譚　シリーズ紹介</span>
+          <span class="hs-menu-desc">妖孽奇譚第一夜の作者卓申し込み・外伝『橋の怪』はこちらへ</span>
+          <span class="hs-menu-arrow" aria-hidden="true">›</span>
+        </a>
+        <a class="hs-menu-item" href="pages/hybridbgm.html">
+          <span class="hs-menu-title">マダミスなどに使えるBGMライブラリ</span>
+          <span class="hs-menu-desc">キャラクターテーマや、セッションに使える無料BGMはこちらへ</span>
+          <span class="hs-menu-arrow" aria-hidden="true">›</span>
+        </a>
+        <a class="hs-menu-item" href="pages/undamesi.html">
+          <span class="hs-menu-title">妖孽奇譚おみくじ</span>
+          <span class="hs-menu-desc">今日の運試しをするにはこちらへ</span>
+          <span class="hs-menu-arrow" aria-hidden="true">›</span>
+        </a>
+        <a class="hs-menu-item" href="pages/blockgame.html">
+          <span class="hs-menu-title">和風ブロック崩し「月夜の破壊」</span>
+          <span class="hs-menu-desc">PCブラウザ向け／遊ぶにはこちらへ</span>
+          <span class="hs-menu-arrow" aria-hidden="true">›</span>
+        </a>
+        <a class="hs-menu-item" href="pages/contact.html">
+          <span class="hs-menu-title">お問い合わせ</span>
+          <span class="hs-menu-desc">ご質問はこちらへ</span>
+          <span class="hs-menu-arrow" aria-hidden="true">›</span>
+        </a>
+      </nav>
+    </section>
+  </main>
+
+  <!-- ===== フッター ===== -->
+  <footer class="footer">
+    <div class="footer__content-bottom-wrapper">
+      <div class="footer__copyright">
+        <small>© 2026, <a href="/">妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版</a></small>
+        <ul class="policies">
+          <li><a href="pages/privacy.html">プライバシーポリシー</a></li>
+          <li><a href="pages/legal.html">特定商取引法に基づく表記</a></li>
+          <li><a href="pages/refund.html">返金ポリシー</a></li>
+          <li><a href="pages/terms.html">利用規約</a></li>
+          <li><a href="pages/contact.html">連絡先情報</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== ドロワーメニューのJS（Shopify不要・純粋なJS） ===== -->
+  <script>
+    (function(){
+      const burger = document.querySelector('.burger');
+      const drawer = document.getElementById('site-drawer');
+      const closeBtn = document.querySelector('.drawer-close');
+      if (!burger || !drawer) return;
+
+      burger.addEventListener('click', function(){
+        drawer.classList.toggle('is-open');
+        burger.setAttribute('aria-expanded', drawer.classList.contains('is-open'));
+      });
+      closeBtn.addEventListener('click', function(){
+        drawer.classList.remove('is-open');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+      // 背景クリックで閉じる
+      document.addEventListener('click', function(e){
+        if (drawer.classList.contains('is-open') && !drawer.contains(e.target) && !burger.contains(e.target)){
+          drawer.classList.remove('is-open');
+          burger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

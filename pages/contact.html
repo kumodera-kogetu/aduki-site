@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>お問い合わせ – 妖孽奇譚 公式サイト</title>
+  <meta name="description" content="妖孽奇譚に関するお問い合わせフォーム。ご購入、ライセンス、作者GM卓、不具合報告などお気軽にどうぞ。">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/hero-heian.css">
+  <style>
+    :root { --font-body-family: 'Noto Serif JP', serif; --color-foreground: 18,18,18; --font-body-scale: 1.0; }
+    *, *::before, *::after { box-sizing: inherit; }
+    html { box-sizing: border-box; font-size: calc(var(--font-body-scale) * 62.5%); }
+    body { min-height: 100vh; margin: 0; font-size: 1.5rem; font-family: var(--font-body-family);
+      color: rgba(var(--color-foreground), 0.75);
+      background: url("../assets/images/washi-texture2.webp") center/600px repeat; }
+    @media screen and (min-width: 750px) { body { font-size: 1.6rem; } }
+    .page-container { max-width: 640px; margin: 0 auto; padding: 2rem 1rem; }
+    h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 1rem; }
+    .contact-intro { margin-bottom: 1.5rem; line-height: 1.8; }
+    .field { margin-bottom: 1.25rem; }
+    .field label { display: block; font-weight: 600; margin-bottom: .35rem; }
+    .field input, .field textarea, .field select {
+      width: 100%; padding: .75rem; border: 1px solid rgba(var(--color-foreground), .2);
+      border-radius: 8px; font-size: 1rem; font-family: var(--font-body-family);
+      background: #fff; transition: border-color .2s;
+    }
+    .field input:focus, .field textarea:focus, .field select:focus {
+      outline: none; border-color: #d8b864; box-shadow: 0 0 0 2px rgba(216,184,100,.2);
+    }
+    .field textarea { min-height: 180px; resize: vertical; }
+    .required::after { content: " *"; color: #c44; }
+    .submit-btn {
+      display: inline-block; padding: .85rem 2rem; background: #0e1a35; color: #f3d068;
+      border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700;
+      font-family: var(--font-body-family); cursor: pointer; transition: background .2s;
+    }
+    .submit-btn:hover { background: #1a2d55; }
+    .contact-note { margin-top: 1rem; font-size: .9rem; opacity: .7; line-height: 1.7; }
+    .footer { margin-top: 75px; text-align: center; padding: 1rem; }
+    .footer a { color: rgba(var(--color-foreground), .5); text-decoration: none; font-size: .85rem; }
+
+    /* Formspree成功時 */
+    .form-success { display: none; background: #e8f5e9; border: 1px solid #66bb6a; border-radius: 12px;
+      padding: 2rem; text-align: center; margin-top: 2rem; }
+    .form-success.show { display: block; }
+  </style>
+</head>
+<body>
+  <header class="header-heian" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="header-logo"></a>
+      <div class="header-title">彩月のマーダーミステリー出版</div>
+      <div class="header-actions">
+        <a href="../index.html"><span aria-hidden="true">🏠</span><span class="nav-label">ホーム</span></a>
+        <button class="burger" aria-label="メニューを開く" aria-controls="site-drawer" aria-expanded="false" type="button">
+          <span aria-hidden="true">≡</span><span class="nav-label">メニュー</span>
+        </button>
+      </div>
+    </div>
+    <div class="drawer" id="site-drawer">
+      <button class="drawer-close" aria-label="閉じる" type="button">✕</button>
+      <nav><ul class="drawer-nav">
+        <li><a href="about.html" class="drawer-link">著者紹介</a></li>
+        <li><a href="hybridbgm.html" class="drawer-link">無料BGMライブラリ</a></li>
+        <li><a href="undamesi.html" class="drawer-link">妖孽奇譚おみくじ</a></li>
+        <li><a href="frontpage.html" class="drawer-link">妖孽奇譚シリーズ一覧</a></li>
+        <li><a href="blockgame.html" class="drawer-link">和風ブロック崩し</a></li>
+        <li><a href="contact.html" class="drawer-link">お問い合わせ</a></li>
+      </ul></nav>
+    </div>
+  </header>
+
+  <main class="page-container">
+    <h1>お問い合わせフォーム</h1>
+    <p class="contact-intro">内容が固まっていなくても大丈夫です。お名前は公開名で構いません。原則48時間以内にお返事します。</p>
+
+    <!-- NOTE: このフォームは独立サイト移行後にFormspree等の無料フォームサービスに接続する必要があります。
+         現在はHTMLの構造のみを再現しています。action属性にFormspreeのエンドポイントを設定してください。
+         例: action="https://formspree.io/f/あなたのID" -->
+    <form id="ContactForm" method="POST" action="mailto:support@aduki-syuppan.com" enctype="text/plain">
+
+      <div class="field">
+        <label for="ContactForm-name">お名前 / Discord または X 名（どれか一つでOK）</label>
+        <input type="text" id="ContactForm-name" name="name" placeholder="例）彩月／aduki#1234／@aduki" autocomplete="name">
+      </div>
+
+      <div class="field">
+        <label for="ContactForm-email" class="required">メールアドレス</label>
+        <input type="email" id="ContactForm-email" name="email" required placeholder="メールアドレス" autocomplete="email">
+      </div>
+
+      <div class="field">
+        <label for="ContactForm-category">用件カテゴリ</label>
+        <select id="ContactForm-category" name="category">
+          <option value="ご購入・ダウンロードについて">ご購入・ダウンロードについて</option>
+          <option value="BGMライセンス／利用可否">BGMライセンス／利用可否</option>
+          <option value="作者GM申し込みについて">作者GM申し込みについて</option>
+          <option value="不具合報告（サイト）">不具合報告（サイト）</option>
+          <option value="取材・その他">取材・その他</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="ContactForm-body">メッセージ</label>
+        <textarea id="ContactForm-body" name="message" placeholder="お問い合わせ内容をご記入ください"></textarea>
+      </div>
+
+      <!-- スパム対策ハニーポット -->
+      <div style="display:none!important" aria-hidden="true">
+        <label for="ContactForm-company">会社名</label>
+        <input id="ContactForm-company" type="text" name="company" tabindex="-1" autocomplete="off">
+      </div>
+
+      <button type="submit" class="submit-btn">送信する</button>
+      <p class="contact-note">自動の受領メールをお送りします。作者が確認後、可能な限り48時間以内に返信いたします。営業・勧誘のご連絡はご遠慮ください。</p>
+    </form>
+  </main>
+
+  <footer class="footer"><small>© 2026, <a href="../index.html">妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版</a></small></footer>
+  <script>
+    (function(){
+      const burger = document.querySelector('.burger'), drawer = document.getElementById('site-drawer'), closeBtn = document.querySelector('.drawer-close');
+      if (!burger || !drawer) return;
+      burger.addEventListener('click', function(){ drawer.classList.toggle('is-open'); burger.setAttribute('aria-expanded', drawer.classList.contains('is-open')); });
+      closeBtn.addEventListener('click', function(){ drawer.classList.remove('is-open'); burger.setAttribute('aria-expanded', 'false'); });
+      document.addEventListener('click', function(e){ if(drawer.classList.contains('is-open')&&!drawer.contains(e.target)&&!burger.contains(e.target)){drawer.classList.remove('is-open');burger.setAttribute('aria-expanded','false');}});
+    })();
+  </script>
+</body>
+</html>
