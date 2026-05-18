@@ -70,9 +70,13 @@
     .faq-item dt { font-weight: 700; }
     .faq-item dd { margin: .25rem 0 0 0; }
 
+    /* 和風見出し */
+    .heian-heading { border-bottom: 2px solid #d8c079; padding-bottom: 0.5rem; margin-top: 2.5rem; color: #0e1a35; }
+
     /* PC紹介 */
-    .pc-list { list-style: none; padding: 0; }
-    .pc-list li { margin: .75rem 0; }
+    .pc-list { list-style: none; padding: 0; display: grid; gap: 1rem; }
+    .pc-list li { background: rgba(255, 255, 255, 0.6); padding: 1.25rem; border-radius: 12px; border-left: 6px solid #0e1a35; box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
+    .pc-list li strong { display: block; font-size: 1.2rem; color: #0e1a35; margin-bottom: 0.5rem; border-bottom: 1px dashed #ccc; padding-bottom: 0.3rem; }
 
     /* 注意書き区切り */
     .section-rule { border: none; border-top: 2px solid #d8c079; margin: 2rem 0; }
@@ -184,24 +188,33 @@
       <h2>妖孽奇譚外伝　～橋の怪～</h2>
       <p>前作未プレイでもOK。3人の連携で物語を切り拓く"協力型"の続編。</p>
 
+      <p style="margin-bottom: 1.5rem;">
+        <a href="https://booth.pm/" class="cta-btn cta-btn--booth" target="_blank" rel="noopener">BOOTHで購入する</a>
+      </p>
+
+      <img src="../assets/images/bridge_main.png" alt="橋の怪 メインビジュアル" loading="lazy">
+
       <p><strong>【全員の勝利条件、同じです】</strong><br>
       犯人役なし。嘘をつく必要なし。3人全員が探偵として、平安京の怪異に立ち向かう。</p>
 
+      <img src="../assets/images/bridge_overview.png" alt="橋の怪 概要" loading="lazy">
+
       <p>この作品は、平安時代を舞台にした3人協力型の「マーダーミステリー風高難易度謎解きゲーム」です。Discord とココフォリア盤面を使う、オンライン専用のシナリオです。</p>
 
-      <h3>1. 物語</h3>
+      <h3 class="heian-heading">1. 物語</h3>
       <p>一条天皇の御代、平安京。結界によって繋がれた過去の橋に、怪異が現れる。<br>
       陰陽師・安倍晴明は動けない。託されたのは、あなたたち3人。<br>
       赤く染まった『腕』が語る真実とは？誰かを救うための嘘とは？</p>
       <p>あなたたちの選択次第で結末は変わります。</p>
-      <ul>
-        <li>✓ PC（プレイヤー）は絶対に死亡しません</li>
-        <li>✓ NPCを救えるかは、あなたたち次第</li>
-        <li>✓ 複数エンディング（BEST/BETTER/BAD）</li>
+      <ul class="check-list">
+        <li>PC（プレイヤー）は絶対に死亡しません</li>
+        <li>NPCを救えるかは、あなたたち次第</li>
+        <li>複数エンディング（BEST/BETTER/BAD）</li>
       </ul>
       <p>「全員を救いたい」その思いが、最高の結末への鍵。</p>
 
-      <h3>2. ゲームの特徴</h3>
+      <h3 class="heian-heading">2. ゲームの特徴</h3>
+      <img src="../assets/images/bridge_features.png" alt="橋の怪 ゲームの特徴" loading="lazy">
       <p><strong>協力型の新体験</strong></p>
       <ul>
         <li>全員が味方（PvPなし）</li>
@@ -212,27 +225,29 @@
         <li>推理×暗号解読×ボドゲ要素</li>
         <li>情報量多め（やりごたえ十分）</li>
       </ul>
-      <p><strong>オンライン専用設計</strong></p>
-      <ul>
-        <li>Discord＋ココフォリア使用</li>
-        <li>プレイ時間：3.5時間＋感想戦</li>
-        <li>GM必須（PL 2〜3人）※推奨人数 PL3人</li>
-        <li>PLは第一夜未プレイでもあそべます（プレイ済みの方がより楽しめます）</li>
-        <li>※GMは、第一夜と本作プレイ済みの方のみ（未通過GM不可）</li>
-      </ul>
+      <p><strong>【作品情報】</strong></p>
+      <dl class="info-grid">
+        <dt>タイトル</dt><dd>妖孽奇譚外伝 ～橋の怪～</dd>
+        <dt>人数</dt><dd>GM必須＋PL2〜3人（推奨PL3人）</dd>
+        <dt>料金</dt><dd>BOOTHにてダウンロード販売</dd>
+        <dt>所要時間</dt><dd>3.5時間＋感想戦</dd>
+        <dt>参加環境</dt><dd>オンライン（ココフォリア＋Discord）</dd>
+        <dt>備考</dt><dd>・PLは第一夜未プレイでも可<br>・GMは第一夜と本作プレイ済みの方のみ</dd>
+      </dl>
 
-      <h3>3. PC紹介（登場キャラクター）</h3>
+
+      <h3 class="heian-heading">3. PC紹介（登場キャラクター）</h3>
       <ul class="pc-list">
-        <li><strong>PC1 姫氏原慧</strong>　安倍晴明の孫。陰陽師としての実力は中級。目の前で困っている人がいたら助けにいく人柄。妖退治の際の自己犠牲、のんびりしているところは相変わらず。</li>
-        <li><strong>PC2 源頼光</strong>　強くて格好良い源氏の若き女頭領。静乃と慧の姉貴分。相棒の童子切とともに、人も妖もぶったぎる。慧と静乃の保護者の癖に、きっちり責任を持たない晴明のじじいが好きではない。いつか一太刀いれたい。</li>
-        <li><strong>PC3 静乃</strong>　天皇の庶子で晴明邸の行儀見習いとして暮らしている、魅力的な美少女で、色々な人に好かれる聞き取り調査の鬼。事件調査に同行させてもらえることが嬉しく、真相解明に全力を尽くす。</li>
+        <li><strong>PC1 姫氏原慧（きしはら けい）</strong>安倍晴明の孫。陰陽師としての実力は中級。目の前で困っている人がいたら助けにいく人柄。妖退治の際の自己犠牲、のんびりしているところは相変わらず。</li>
+        <li><strong>PC2 源頼光（みなもとの よりみつ）</strong>強くて格好良い源氏の若き女頭領。静乃と慧の姉貴分。相棒の童子切とともに、人も妖もぶったぎる。慧と静乃の保護者の癖に、きっちり責任を持たない晴明のじじいが好きではない。いつか一太刀いれたい。</li>
+        <li><strong>PC3 静乃（しずの）</strong>天皇の庶子で晴明邸の行儀見習いとして暮らしている、魅力的な美少女で、色々な人に好かれる聞き取り調査の鬼。事件調査に同行させてもらえることが嬉しく、真相解明に全力を尽くす。</li>
       </ul>
 
-      <h3>4. 内容物一覧</h3>
+      <h3 class="heian-heading">4. 内容物一覧</h3>
       <p>〈通常版〉シナリオPDF／GMガイド／読み合わせPDF／解答解説／補足PDF など<br>
       ココフォリア盤面・エンドカード・画像素材</p>
 
-      <h3>5. こんな方におすすめ</h3>
+      <h3 class="heian-heading">5. こんな方におすすめ</h3>
       <ul class="check-list">
         <li>純粋に謎解きを楽しみたい</li>
         <li>全員で「やった！」を共有したい</li>
