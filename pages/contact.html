@@ -18,34 +18,56 @@
       background: url("../assets/images/washi-texture2.webp") center/600px repeat; }
     @media screen and (min-width: 750px) { body { font-size: 1.6rem; } }
     .page-container { max-width: 640px; margin: 0 auto; padding: 2rem 1rem; }
-    h1 { font-size: clamp(1.8rem, 4vw, 2.4rem); margin-bottom: 1rem; }
-    .contact-intro { margin-bottom: 1.5rem; line-height: 1.8; }
-    .field { margin-bottom: 1.25rem; }
-    .field label { display: block; font-weight: 600; margin-bottom: .35rem; }
-    .field input, .field textarea, .field select {
-      width: 100%; padding: .75rem; border: 1px solid rgba(var(--color-foreground), .2);
-      border-radius: 8px; font-size: 1rem; font-family: var(--font-body-family);
-      background: #fff; transition: border-color .2s;
+    .letter-card {
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 8px; padding: 3rem 2rem;
+      box-shadow: 0 8px 32px rgba(14, 26, 53, 0.15);
+      border: 1px solid rgba(216, 192, 121, 0.5);
+      position: relative;
     }
-    .field input:focus, .field textarea:focus, .field select:focus {
-      outline: none; border-color: #d8b864; box-shadow: 0 0 0 2px rgba(216,184,100,.2);
+    .letter-card::before {
+      content: ""; position: absolute; top: 0; left: 0; right: 0; height: 6px;
+      background: linear-gradient(90deg, #0e1a35, #d8c079);
+      border-radius: 8px 8px 0 0;
     }
-    .field textarea { min-height: 180px; resize: vertical; }
-    .required::after { content: " *"; color: #c44; }
-    .submit-btn {
-      display: inline-block; padding: .85rem 2rem; background: #0e1a35; color: #f3d068;
-      border: none; border-radius: 8px; font-size: 1.1rem; font-weight: 700;
-      font-family: var(--font-body-family); cursor: pointer; transition: background .2s;
+    .contact-title {
+      font-size: clamp(1.8rem, 4vw, 2.2rem);
+      color: #0e1a35; text-align: center; margin-bottom: 0.5rem;
     }
-    .submit-btn:hover { background: #1a2d55; }
-    .contact-note { margin-top: 1rem; font-size: .9rem; opacity: .7; line-height: 1.7; }
-    .footer { margin-top: 75px; text-align: center; padding: 1rem; }
-    .footer a { color: rgba(var(--color-foreground), .5); text-decoration: none; font-size: .85rem; }
-
-    /* Formspree成功時 */
-    .form-success { display: none; background: #e8f5e9; border: 1px solid #66bb6a; border-radius: 12px;
-      padding: 2rem; text-align: center; margin-top: 2rem; }
-    .form-success.show { display: block; }
+    .contact-subtitle {
+      text-align: center; color: #d8c079; font-weight: 700; margin-bottom: 2rem; font-size: 1.1rem;
+    }
+    .contact-greeting {
+      line-height: 1.8; text-align: center; margin-bottom: 2.5rem;
+    }
+    .contact-topics {
+      background: rgba(14, 26, 53, 0.03);
+      padding: 1.5rem; border-radius: 8px; margin-bottom: 2.5rem;
+    }
+    .contact-topics h3 { font-size: 1.2rem; color: #0e1a35; margin-top: 0; border-bottom: 1px dashed #d8c079; padding-bottom: 0.5rem; text-align: center; }
+    .topic-list { list-style: none; padding: 0; margin: 1rem 0 0 0; }
+    .topic-list li { margin: 0.8rem 0; padding-left: 1.8rem; position: relative; }
+    .topic-list li::before { content: "🖋️"; position: absolute; left: 0; top: 0; font-size: 1rem; }
+    .topic-list strong { color: #0e1a35; }
+    
+    .cta-area { text-align: center; margin-bottom: 2.5rem; }
+    .mail-btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 0.5rem;
+      background: #0e1a35; color: #f3d068; text-decoration: none;
+      padding: 1.2rem 2.5rem; border-radius: 50px; font-weight: 700; font-size: 1.3rem;
+      transition: all 0.3s; box-shadow: 0 4px 12px rgba(14, 26, 53, 0.3);
+    }
+    .mail-btn:hover {
+      background: #d8c079; color: #0e1a35; transform: translateY(-3px); box-shadow: 0 6px 16px rgba(14, 26, 53, 0.4);
+    }
+    .mail-address-text {
+      margin-top: 1.5rem; font-size: 1.1rem; color: #555;
+    }
+    .mail-address-text strong { color: #0e1a35; user-select: all; border-bottom: 2px solid #d8c079; padding-bottom: 2px; }
+    
+    .contact-notes { font-size: 0.95rem; opacity: 0.8; line-height: 1.7; border-top: 1px solid #eee; padding-top: 1.5rem; }
+    .contact-notes h4 { margin: 0 0 0.5rem 0; color: #0e1a35; }
+    .contact-notes ul { padding-left: 1.5rem; margin: 0; }
   </style>
 </head>
 <body>
@@ -74,52 +96,59 @@
   </header>
 
   <main class="page-container">
-    <h1>お問い合わせフォーム</h1>
-    <p class="contact-intro">内容が固まっていなくても大丈夫です。お名前は公開名で構いません。原則48時間以内にお返事します。</p>
+    <div class="letter-card">
+      <h1 class="contact-title">お問い合わせ</h1>
+      <p class="contact-subtitle">〜 作者へ文（ふみ）を送る 〜</p>
+      
+      <p class="contact-greeting">
+        妖孽奇譚の世界へようこそ。<br>
+        作品へのご感想、プレイに関するご相談など、<br>
+        どんな些細なことでも、お気軽にご連絡ください。
+      </p>
 
-    <!-- NOTE: このフォームは独立サイト移行後にFormspree等の無料フォームサービスに接続する必要があります。
-         現在はHTMLの構造のみを再現しています。action属性にFormspreeのエンドポイントを設定してください。
-         例: action="https://formspree.io/f/あなたのID" -->
-    <form id="ContactForm" method="POST" action="mailto:support@aduki-syuppan.com" enctype="text/plain">
-
-      <div class="field">
-        <label for="ContactForm-name">お名前 / Discord または X 名（どれか一つでOK）</label>
-        <input type="text" id="ContactForm-name" name="name" placeholder="例）彩月／aduki#1234／@aduki" autocomplete="name">
+      <div class="contact-topics">
+        <h3>こんな内容をお待ちしております</h3>
+        <ul class="topic-list">
+          <li><strong>ご購入について</strong>（ダウンロード方法がわからない等）</li>
+          <li><strong>ルールの質問</strong>（プレイ前のちょっとした疑問など）</li>
+          <li><strong>BGMのご利用</strong>（配信や動画での利用確認など）</li>
+          <li><strong>ご感想・ファンレター</strong>（作者の執筆の活力になります！）</li>
+        </ul>
       </div>
 
-      <div class="field">
-        <label for="ContactForm-email" class="required">メールアドレス</label>
-        <input type="email" id="ContactForm-email" name="email" required placeholder="メールアドレス" autocomplete="email">
+      <div class="cta-area">
+        <p style="margin-bottom: 1.2rem; font-weight: 600; color: #0e1a35;">＼ 以下のボタンからメールを作成できます ／</p>
+        <a href="mailto:support@aduki-syuppan.com" class="mail-btn">
+          <span style="font-size: 1.5rem;">✉️</span> support@aduki-syuppan.com
+        </a>
       </div>
 
-      <div class="field">
-        <label for="ContactForm-category">用件カテゴリ</label>
-        <select id="ContactForm-category" name="category">
-          <option value="ご購入・ダウンロードについて">ご購入・ダウンロードについて</option>
-          <option value="BGMライセンス／利用可否">BGMライセンス／利用可否</option>
-          <option value="作者GM申し込みについて">作者GM申し込みについて</option>
-          <option value="不具合報告（サイト）">不具合報告（サイト）</option>
-          <option value="取材・その他">取材・その他</option>
-        </select>
+      <div class="contact-notes">
+        <h4>【ご案内】</h4>
+        <ul>
+          <li>ご用件（不具合報告など）は本文にご記載ください。</li>
+          <li>作者が確認後、可能な限り<strong>48時間以内</strong>に返信いたします。</li>
+          <li>お名前はペンネームや公開名（DiscordやXの名前）で構いません。</li>
+          <li>※営業・勧誘を目的としたご連絡はご遠慮ください。</li>
+        </ul>
       </div>
-
-      <div class="field">
-        <label for="ContactForm-body">メッセージ</label>
-        <textarea id="ContactForm-body" name="message" placeholder="お問い合わせ内容をご記入ください"></textarea>
-      </div>
-
-      <!-- スパム対策ハニーポット -->
-      <div style="display:none!important" aria-hidden="true">
-        <label for="ContactForm-company">会社名</label>
-        <input id="ContactForm-company" type="text" name="company" tabindex="-1" autocomplete="off">
-      </div>
-
-      <button type="submit" class="submit-btn">送信する</button>
-      <p class="contact-note">自動の受領メールをお送りします。作者が確認後、可能な限り48時間以内に返信いたします。営業・勧誘のご連絡はご遠慮ください。</p>
-    </form>
+    </div>
   </main>
 
-  <footer class="footer"><small>© 2026, <a href="../index.html">妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版</a></small></footer>
+  <footer class="footer">
+    <div class="footer__content-bottom-wrapper">
+      <div class="footer__copyright">
+        <small>© 2026, <a href="../index.html">妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版</a></small>
+        <ul class="policies">
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="legal.html">特定商取引法に基づく表記</a></li>
+          <li><a href="refund.html">返金ポリシー</a></li>
+          <li><a href="terms.html">利用規約</a></li>
+          <li><a href="contact.html">連絡先情報</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
   <script>
     (function(){
       const burger = document.querySelector('.burger'), drawer = document.getElementById('site-drawer'), closeBtn = document.querySelector('.drawer-close');

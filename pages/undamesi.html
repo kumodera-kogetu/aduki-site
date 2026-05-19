@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="utf-8">
@@ -24,9 +24,7 @@
       background: url("../assets/images/washi-texture2.webp") center/600px repeat; }
     @media screen and (min-width: 750px) { body { font-size: 1.6rem; } }
     .page-container { max-width: 900px; margin: 0 auto; padding: 2rem 1rem; }
-    .footer { margin-top: 75px; text-align: center; padding: 1rem; }
-    .footer a { color: rgba(var(--color-foreground), .5); text-decoration: none; font-size: .85rem; }
-
+        
     /* おみくじスタイル */
     .omikuji-app-wrapper{position:relative;background:radial-gradient(circle at 50% 50%,#1a293f,#2d4a7a);overflow:hidden;border:4px solid #d8b864;border-radius:2rem;min-height:620px}
     .omikuji-container{position:relative;z-index:10;max-width:800px;margin:0 auto;padding:2rem;display:flex;flex-direction:column;align-items:center;justify-content:center}
@@ -106,7 +104,20 @@
     </div>
   </main>
 
-  <footer class="footer"><small>© 2026, <a href="../index.html">妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版</a></small></footer>
+  <footer class="footer">
+    <div class="footer__content-bottom-wrapper">
+      <div class="footer__copyright">
+        <small>© 2026, <a href="../index.html">妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版</a></small>
+        <ul class="policies">
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="legal.html">特定商取引法に基づく表記</a></li>
+          <li><a href="refund.html">返金ポリシー</a></li>
+          <li><a href="terms.html">利用規約</a></li>
+          <li><a href="contact.html">連絡先情報</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
 
   <script>
     // ドロワーメニュー

@@ -247,3 +247,19 @@ html, body { margin: 0; padding: 0; }
 #shopify-section-sales .hero-heian__cta:hover,
 #shopify-section-sales .hero-heian__cta:focus-visible{ filter: brightness(.92); }
 #shopify-section-sales .hero-heian__cta:active{ transform: translateY(1px); }
+
+/* =========================================================
+   Global Footer (全ページ共通)
+   ========================================================= */
+.footer { margin-top: 75px; text-align: center; padding: 2rem 1rem; border-top: 1px solid rgba(0,0,0,0.05); }
+.footer__content-bottom-wrapper { max-width: 1200px; margin: 0 auto; }
+.footer__copyright small { font-size: 0.9rem; color: #555; }
+.footer__copyright small a { color: #0e1a35; text-decoration: none; }
+.policies {
+  list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; flex-wrap: wrap; justify-content: center; gap: 1rem;
+}
+.policies li { display: flex; align-items: center; }
+.policies li::before { content: '・'; margin-right: 1rem; color: #aaa; }
+.policies li:first-child::before { display: none; }
+.policies li a { color: #666; text-decoration: none; font-size: 0.85rem; }
+.policies li a:hover { text-decoration: underline; color: #0e1a35; }

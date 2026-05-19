@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ja">
 <head>
   <meta charset="utf-8">
@@ -20,9 +20,7 @@
     h1 { margin-bottom: 1.5rem; }
     h2 { margin-top: 2rem; }
     hr { border: none; border-top: 1px solid rgba(var(--color-foreground), .15); margin: 3rem 0; }
-    .footer { margin-top: 75px; text-align: center; padding: 1rem; }
-    .footer a { color: rgba(var(--color-foreground), .5); text-decoration: none; font-size: .85rem; }
-  </style>
+          </style>
 </head>
 <body>
   <header class="header-heian" role="banner">
@@ -157,7 +155,20 @@
     <p>当方は必要に応じて本規約を改定できます。重要な変更はサイト上で周知し、改定後の規約が適用されます。</p>
   </main>
 
-  <footer class="footer"><small>© 2026, <a href="../index.html">妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版</a></small></footer>
+  <footer class="footer">
+    <div class="footer__content-bottom-wrapper">
+      <div class="footer__copyright">
+        <small>© 2026, <a href="../index.html">妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版</a></small>
+        <ul class="policies">
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="legal.html">特定商取引法に基づく表記</a></li>
+          <li><a href="refund.html">返金ポリシー</a></li>
+          <li><a href="terms.html">利用規約</a></li>
+          <li><a href="contact.html">連絡先情報</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
   <script>
     (function(){const b=document.querySelector('.burger'),d=document.getElementById('site-drawer'),c=document.querySelector('.drawer-close');if(!b||!d)return;b.addEventListener('click',function(){d.classList.toggle('is-open');b.setAttribute('aria-expanded',d.classList.contains('is-open'));});c.addEventListener('click',function(){d.classList.remove('is-open');b.setAttribute('aria-expanded','false');});document.addEventListener('click',function(e){if(d.classList.contains('is-open')&&!d.contains(e.target)&&!b.contains(e.target)){d.classList.remove('is-open');b.setAttribute('aria-expanded','false');}});})();
   </script>
