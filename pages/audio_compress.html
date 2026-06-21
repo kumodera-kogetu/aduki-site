@@ -1,0 +1,516 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>TRPG/マダミス BGM最適化ツール – 妖孽奇譚 公式サイト</title>
+  <meta name="description" content="ココフォリア等で使えるように、ブラウザ内で超高速にBGMを圧縮・変換・最適化します。サーバーへのアップロード不要で安全です。">
+
+  <!-- フォント -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <!-- CSS (トップページと共通のもの) -->
+  <link rel="stylesheet" href="../css/hero-heian.css?v=4">
+  <link rel="stylesheet" href="../css/home-single-column.css?v=2">
+  <link rel="stylesheet" href="../css/section-footer.css?v=2">
+  <link rel="stylesheet" href="../css/component-list-menu.css?v=2">
+
+  <!-- ffmpeg.wasm v0.11 -->
+  <script src="https://unpkg.com/@ffmpeg/ffmpeg@0.11.6/dist/ffmpeg.min.js"></script>
+  <!-- JSZip -->
+  <script src="../assets/js/jszip.min.js?v=2"></script>
+
+  <style>
+    :root {
+      --font-body-family: 'Noto Serif JP', serif;
+      --font-heading-family: 'Noto Serif JP', serif;
+      --font-body-scale: 1.0;
+      --font-body-weight: 400;
+      --font-heading-weight: 700;
+      --color-foreground: 18,18,18;
+      --color-background: 255,255,255;
+      --cta-color: #F08C2B;
+      --accent-gold: #d8c079;
+    }
+    *, *::before, *::after { box-sizing: inherit; }
+    html { box-sizing: border-box; font-size: 62.5%; height: 100%; }
+    
+    body {
+      display: grid; grid-template-rows: auto 1fr auto;
+      min-height: 100%; margin: 0;
+      font-size: 1.5rem; letter-spacing: 0.06rem;
+      line-height: 1.6;
+      font-family: var(--font-body-family);
+      color: rgba(var(--color-foreground), 0.85);
+      background: url("../assets/images/washi-texture2.webp") center/600px repeat;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="font-size:24px"><text y="24">🦊</text></svg>'), auto;
+    }
+    
+    @media screen and (min-width: 750px) { body { font-size: 1.6rem; } }
+    
+    a, button, label {
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="font-size:24px"><text y="24">🐾</text></svg>'), pointer;
+    }
+
+
+    /* ツール固有のスタイル */
+    .tool-container {
+      max-width: 900px;
+      width: 90%;
+      margin: 40px auto;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+      border: 1px solid var(--accent-gold);
+      backdrop-filter: blur(5px);
+    }
+
+    .tool-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    
+    .tool-header h1 {
+      font-size: 2.4rem;
+      color: #111;
+      margin-bottom: 10px;
+    }
+    
+    .tool-header p {
+      font-size: 1.4rem;
+      color: #555;
+    }
+
+    /* ドロップエリア */
+    .drop-area {
+      border: 3px dashed var(--accent-gold);
+      border-radius: 12px;
+      padding: 60px 20px;
+      text-align: center;
+      background: rgba(216, 192, 121, 0.05);
+      transition: all 0.3s ease;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .drop-area.dragover {
+      background: rgba(240, 140, 43, 0.1);
+      border-color: var(--cta-color);
+      transform: scale(1.02);
+    }
+
+    .drop-area p {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin: 0 0 10px 0;
+      pointer-events: none;
+    }
+    
+    .drop-area span {
+      font-size: 1.3rem;
+      color: #666;
+      pointer-events: none;
+    }
+
+    /* 設定エリア */
+    .settings-panel {
+      background: #fff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 30px;
+    }
+
+    .settings-panel h3 {
+      margin-top: 0;
+      margin-bottom: 15px;
+      font-size: 1.6rem;
+      border-bottom: 1px solid var(--accent-gold);
+      padding-bottom: 5px;
+      display: inline-block;
+    }
+
+    .setting-group {
+      margin-bottom: 15px;
+    }
+
+    .setting-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    select, input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-family: inherit;
+      font-size: 1.4rem;
+      cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" style="font-size:24px"><text y="24">🐾</text></svg>'), pointer;
+    }
+
+    .checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    
+    .checkbox-wrap input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--cta-color);
+    }
+
+    /* ログ＆プログレス */
+    .progress-area {
+      display: none;
+      margin-top: 20px;
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 20px;
+      background: #eee;
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--cta-color);
+      transition: width 0.3s ease;
+    }
+
+    #log-terminal {
+      background: #1e1e1e;
+      color: #9cdcfe;
+      padding: 15px;
+      border-radius: 6px;
+      font-family: Consolas, monospace;
+      font-size: 0.9rem;
+      height: 150px;
+      overflow-y: auto;
+      white-space: pre-wrap; /* 長いログでの横はみ出しを防止 */
+      word-break: break-all;
+    }
+    .file-list-area {
+      margin-top: 20px;
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--accent-gold);
+      border-radius: 4px;
+    }
+    .file-list-area table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: auto;
+      min-width: 600px; /* 小さい画面では内部スクロールさせる */
+    }
+    .file-list-area th, .file-list-area td {
+      border-bottom: 1px solid #d9b48f;
+      padding: 10px;
+      text-align: left;
+    }
+    .log-window p { margin: 0; }
+    .log-error { color: #ff6188; }
+    .log-success { color: #ffd866; }
+
+    /* ダウンロードボタンエリア */
+    .download-area {
+      margin-top: 15px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .btn-download {
+      display: inline-block;
+      background: var(--cta-color);
+      color: #fff;
+      padding: 10px 20px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      text-align: center;
+      transition: opacity 0.2s;
+    }
+    .btn-download:hover { opacity: 0.8; }
+
+    .footer { margin-top: 40px; }
+
+    /* ===== ドロワーメニュー修正（このページ固有） ===== */
+    /* ドロワーが閉じている時は画面外に完全に隠す */
+    #site-drawer {
+      position: fixed !important;
+      top: 0 !important;
+      bottom: 0 !important;
+      right: -100% !important;
+      width: min(80%, 320px) !important;
+      height: 100% !important;
+      background: #0e1a35 !important;
+      z-index: 9999 !important;
+      overflow-y: auto !important;
+      transition: right .3s ease !important;
+      padding: 1rem !important;
+    }
+    /* ドロワーが開いた時 */
+    #site-drawer.is-open {
+      right: 0 !important;
+    }
+    /* ドロワー内のリンクを確実に表示 */
+    #site-drawer .drawer-nav {
+      display: flex !important;
+      flex-direction: column !important;
+      list-style: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+    #site-drawer .drawer-nav li {
+      list-style: none !important;
+      display: block !important;
+    }
+    #site-drawer .drawer-link {
+      display: block !important;
+      color: #CCA93A !important;
+      font-size: 1.7rem !important;
+      line-height: 1.6 !important;
+      padding: .75rem 1rem !important;
+      text-decoration: none !important;
+      border-radius: 8px !important;
+    }
+    #site-drawer .drawer-link:hover {
+      background: rgba(255,255,255,0.1) !important;
+    }
+    #site-drawer .drawer-close {
+      background: none !important;
+      border: none !important;
+      font-size: 1.6rem !important;
+      color: #fff !important;
+      cursor: pointer !important;
+      min-width: 44px !important;
+      min-height: 44px !important;
+    }
+
+    /* ===== 余白防止（メインコンテンツのみに適用） ===== */
+    main {
+      overflow-x: hidden;
+    }
+  </style>
+</head>
+
+<body class="gradient">
+  <header class="header-heian" role="banner">
+    <div class="header-inner">
+      <a href="../index.html" class="header-logo" aria-label="ホーム"></a>
+      <div class="header-title">彩月のマーダーミステリー出版</div>
+      <div class="header-actions">
+        <a href="../index.html" class="home" aria-label="ホーム">
+          <span class="home-ico" aria-hidden="true">🏠</span>
+          <span class="nav-label">ホーム</span>
+        </a>
+        <button class="burger" aria-label="メニューを開く" aria-controls="site-drawer" aria-expanded="false" type="button">
+          <span class="burger-ico" aria-hidden="true">≡</span>
+          <span class="nav-label">メニュー</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ドロワーメニュー（headerの外に配置 = backdrop-filterの影響を回避） -->
+  <div class="drawer" id="site-drawer">
+    <button class="drawer-close" aria-label="閉じる" type="button">✕</button>
+    <nav aria-label="サイトメニュー">
+      <ul class="drawer-nav">
+        <li><a href="about.html" class="drawer-link">著者紹介</a></li>
+        <li><a href="hybridbgm.html" class="drawer-link">無料BGMライブラリ</a></li>
+        <li><a href="audio_compress.html" class="drawer-link">BGM圧縮・最適化ツール</a></li>
+        <li><a href="undamesi.html" class="drawer-link">妖孽奇譚おみくじ</a></li>
+        <li><a href="frontpage.html" class="drawer-link">妖孽奇譚シリーズ一覧</a></li>
+        <li><a href="blockgame.html" class="drawer-link">和風ブロック崩し</a></li>
+        <li><a href="contact.html" class="drawer-link">お問い合わせ</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <main id="MainContent" role="main">
+    <div class="tool-container">
+      <div class="tool-header">
+        <h1>TRPG/マダミス セッション用BGM 圧縮・変換・最適化ツール</h1>
+        <p>セッションに向けたBGMのサイズ最適化と形式変換を行います</p>
+      </div>
+
+      <!-- ドロップ＆リストエリア -->
+      <div id="drop-area" class="drop-area" style="padding: 30px 20px; margin-bottom: 20px;">
+        <p>📥 ここに音楽ファイルをドロップ</p>
+        <span>（mp3, wav, m4a, ogg, flac対応 / 最大25曲まで）</span>
+      </div>
+
+      <div class="file-actions" style="display: flex; gap: 10px; margin-bottom: 10px;">
+        <button id="btn-add" class="btn-primary" style="padding: 8px 15px; border-radius: 6px; border:none; cursor: pointer;">音源を選ぶ</button>
+        <button id="btn-remove" style="padding: 8px 15px; border-radius: 6px; border: 1px solid #ccc; cursor: pointer;">選択を外す</button>
+        <button id="btn-clear" style="padding: 8px 15px; border-radius: 6px; border: 1px solid #ccc; cursor: pointer;">すべて外す</button>
+        <div style="flex-grow: 1;"></div>
+        <button id="btn-play-orig" style="padding: 8px 15px; border-radius: 6px; border: 1px solid #ccc; cursor: pointer;">元を試聴</button>
+        <button id="btn-play-out" style="padding: 8px 15px; border-radius: 6px; border: 1px solid #ccc; cursor: pointer;">圧縮後を試聴</button>
+        <input type="file" id="file-input" multiple accept="audio/*" style="display:none;">
+      </div>
+
+      <div style="overflow-x: auto; margin-bottom: 30px; border: 1px solid var(--accent-gold); border-radius: 8px;">
+        <table id="file-table" style="width: 100%; border-collapse: collapse; text-align: left; background: #fffdf8;">
+          <thead style="background: #ead2b7; color: #53382b;">
+            <tr>
+              <th style="padding: 10px; border-bottom: 1px solid #d9b48f;">#</th>
+              <th style="padding: 10px; border-bottom: 1px solid #d9b48f; width: 40%;">音源</th>
+              <th style="padding: 10px; border-bottom: 1px solid #d9b48f;">長さ</th>
+              <th style="padding: 10px; border-bottom: 1px solid #d9b48f;">元サイズ</th>
+              <th style="padding: 10px; border-bottom: 1px solid #d9b48f;">圧縮後</th>
+              <th style="padding: 10px; border-bottom: 1px solid #d9b48f;">状態</th>
+            </tr>
+          </thead>
+          <tbody id="file-tbody">
+            <!-- ファイルリストがここに入ります -->
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 設定エリア -->
+      <div class="settings-panel">
+        <h3>⚙️ 圧縮・変換設定</h3>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+          <div class="setting-group">
+            <label for="mode-select">圧縮モード</label>
+            <select id="mode-select">
+              <option value="AUTO">ココフォリア最適化 (自動)</option>
+              <option value="HIGH">高音質</option>
+              <option value="STANDARD">標準</option>
+              <option value="STRONG">高圧縮</option>
+              <option value="ULTRA">サイズ極小化 (とにかく軽く)</option>
+              <option value="TARGET">ファイルサイズ指定 (MB)</option>
+              <option value="PERCENT">圧縮率指定 (%)</option>
+              <option value="ADVANCED">ビットレート直接指定 (kbps)</option>
+            </select>
+          </div>
+          <div class="setting-group">
+            <label for="format-select">出力形式</label>
+            <select id="format-select">
+              <option value="mp3">MP3</option>
+              <option value="m4a">M4A</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+          <div class="setting-group">
+            <label for="target-mb">目標サイズ (MB)</label>
+            <input type="number" id="target-mb" value="8.0" step="0.5" min="1.0">
+          </div>
+          <div class="setting-group">
+            <label for="percent-val">圧縮率 (%)</label>
+            <input type="number" id="percent-val" value="60" step="1" min="1" max="100" disabled>
+          </div>
+          <div class="setting-group">
+            <label for="kbps-val">kbps指定</label>
+            <input type="number" id="kbps-val" value="128" step="1" min="32" max="320" disabled>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 15px;">
+          <div class="checkbox-wrap">
+            <input type="checkbox" id="check-normalize">
+            <label for="check-normalize">音量を軽くそろえる</label>
+          </div>
+          <div class="checkbox-wrap">
+            <input type="checkbox" id="check-sanitize" checked>
+            <label for="check-sanitize">ファイル名を整える</label>
+          </div>
+          <div class="checkbox-wrap">
+            <input type="checkbox" id="check-prefix" checked>
+            <label for="check-prefix">01_連番をつける</label>
+          </div>
+          <div class="checkbox-wrap" style="width: 100%;">
+            <input type="checkbox" id="skip-small" checked>
+            <label for="skip-small">すでに小さい音源（目標サイズ以下）は再圧縮しない</label>
+          </div>
+        </div>
+
+        <div id="mode-hint" style="background: #fff3dd; color: #76513e; padding: 10px; border-radius: 6px; font-size: 1.3rem;">
+          目標サイズに合わせて自動で最適なビットレートを選択します。
+        </div>
+      </div>
+
+      <!-- 実行アクション -->
+      <div style="display: flex; justify-content: flex-end; gap: 15px; margin-bottom: 20px;">
+        <button id="btn-cancel" style="padding: 12px 25px; border-radius: 8px; border: 1px solid #ccc; background: #eee; cursor: not-allowed;" disabled>中止</button>
+        <button id="btn-start" style="padding: 12px 25px; border-radius: 8px; border: none; background: #b94b3c; color: white; font-weight: bold; font-size: 1.6rem; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">最適化をスタート</button>
+      </div>
+
+      <!-- 進行状況・ログ -->
+      <div id="progress-area" class="progress-area" style="display: block;">
+        <div style="display: flex; justify-content: space-between; font-size: 1.3rem; margin-bottom: 5px;">
+          <span>全体の進捗</span>
+          <span id="overall-progress-text">0%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div id="overall-progress-bar" class="progress-bar-fill" style="width: 0%;"></div>
+        </div>
+        <div id="log-terminal" class="log-window">
+          <p>準備完了。ファイルをドロップするか、「音源を選ぶ」から追加してください。</p>
+        </div>
+        
+        <!-- ダウンロードエリアをここに移動 -->
+        <div id="zip-download-area" style="text-align: center; margin: 20px 0;"></div>
+        <div id="download-area" class="download-grid" style="display: flex; flex-direction: row; flex-wrap: wrap; gap: 10px;"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__content-bottom-wrapper">
+      <div class="footer__copyright">
+        <small>© 2026, <a href="../index.html">妖孽奇譚 公式サイト – 彩月のマーダーミステリー出版</a></small>
+        <ul class="policies">
+          <li><a href="privacy.html">プライバシーポリシー</a></li>
+          <li><a href="legal.html">特定商取引法に基づく表記</a></li>
+          <li><a href="refund.html">返金ポリシー</a></li>
+          <li><a href="terms.html">利用規約</a></li>
+          <li><a href="contact.html">連絡先情報</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function(){
+      const burger = document.querySelector('.burger');
+      const drawer = document.getElementById('site-drawer');
+      const closeBtn = document.querySelector('.drawer-close');
+      if (!burger || !drawer) return;
+      burger.addEventListener('click', function(){
+        drawer.classList.toggle('is-open');
+        burger.setAttribute('aria-expanded', drawer.classList.contains('is-open'));
+      });
+      closeBtn.addEventListener('click', function(){
+        drawer.classList.remove('is-open');
+        burger.setAttribute('aria-expanded', 'false');
+      });
+      document.addEventListener('click', function(e){
+        if (drawer.classList.contains('is-open') && !drawer.contains(e.target) && !burger.contains(e.target)){
+          drawer.classList.remove('is-open');
+          burger.setAttribute('aria-expanded', 'false');
+        }
+      });
+    })();
+  </script>
+
+  <script src="../js/audio_compress.js?v=5"></script>
+</body>
+</html>

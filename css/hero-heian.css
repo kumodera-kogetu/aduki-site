@@ -12,7 +12,6 @@ html, body { margin: 0; padding: 0; }
   padding: var(--spacing-sections-mobile, .7rem 1rem);
   background:#0e1a35;
   color:#fff;
-  backdrop-filter: blur(4px);
   border-bottom:1px solid rgba(255,255,255,.15);
   box-shadow: 0 2px 4px rgba(0,0,0,.15);
 }
