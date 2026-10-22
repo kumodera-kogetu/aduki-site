@@ -214,6 +214,14 @@ function formatBytes(bytes) {
   return (bytes / (1024*1024)).toFixed(2) + " MB";
 }
 
+// 表のセルを追加する（ファイル名などをHTMLとして解釈させないため textContent で入れる）
+function appendCell(tr, text, extraStyle = '') {
+  const td = document.createElement('td');
+  td.style.cssText = 'padding: 10px; border-bottom: 1px solid #ead6bf;' + extraStyle;
+  td.textContent = text;
+  tr.appendChild(td);
+}
+
 // テーブル描画
 function renderTable() {
   tbody.innerHTML = '';
@@ -230,14 +238,12 @@ function renderTable() {
     if(color) tr.style.background = color;
     if (selectedIndex === index) tr.style.border = '2px solid #b85c38'; // 選択状態を強調
 
-    tr.innerHTML = `
-      <td style="padding: 10px; border-bottom: 1px solid #ead6bf; text-align: center;">${index + 1}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #ead6bf;">${item.file.name}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #ead6bf; text-align: center;">${formatDuration(item.duration)}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #ead6bf; text-align: center;">${formatBytes(item.originalSize)}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #ead6bf; text-align: center;">${formatBytes(item.outSize)}</td>
-      <td style="padding: 10px; border-bottom: 1px solid #ead6bf; text-align: center; font-weight:bold;">${item.status}</td>
-    `;
+    appendCell(tr, index + 1, ' text-align: center;');
+    appendCell(tr, item.file.name);
+    appendCell(tr, formatDuration(item.duration), ' text-align: center;');
+    appendCell(tr, formatBytes(item.originalSize), ' text-align: center;');
+    appendCell(tr, formatBytes(item.outSize), ' text-align: center;');
+    appendCell(tr, item.status, ' text-align: center; font-weight:bold;');
     tr.addEventListener('click', () => {
       selectedIndex = index;
       renderTable();
