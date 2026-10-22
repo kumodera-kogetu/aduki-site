@@ -149,17 +149,43 @@ if (typeof window === 'undefined') {
             (registration) => {
                 !coi.quiet && console.log("COOP/COEP Service Worker registered", registration.scope);
 
+                // 再読み込みは、SWが動き始めて（activated）から1回だけ行う
+                // （動き始める前に再読み込みすると、再読み込み後のページがSWの管理下に入らず、
+                //   初回だけ高速モードにならないことがあったため）
+                let reloadScheduled = false;
+                const reloadWhenActivated = (worker, reason) => {
+                    if (reloadScheduled) {
+                        return;
+                    }
+                    reloadScheduled = true;
+                    const reload = () => {
+                        !coi.quiet && console.log("Reloading page to make use of COOP/COEP Service Worker.");
+                        window.sessionStorage.setItem("coiReloadedBySelf", reason);
+                        coi.doReload();
+                    };
+                    if (worker.state === "activated") {
+                        reload();
+                        return;
+                    }
+                    worker.addEventListener("statechange", () => {
+                        if (worker.state === "activated") {
+                            reload();
+                        }
+                    });
+                };
+
                 registration.addEventListener("updatefound", () => {
-                    !coi.quiet && console.log("Reloading page to make use of updated COOP/COEP Service Worker.");
-                    window.sessionStorage.setItem("coiReloadedBySelf", "updatefound");
-                    coi.doReload();
+                    if (registration.installing) {
+                        reloadWhenActivated(registration.installing, "updatefound");
+                    }
                 });
+                if (registration.installing) {
+                    reloadWhenActivated(registration.installing, "updatefound");
+                }
 
                 // If the registration is active, but it's not controlling the page
                 if (registration.active && !n.serviceWorker.controller) {
-                    !coi.quiet && console.log("Reloading page to make use of COOP/COEP Service Worker.");
-                    window.sessionStorage.setItem("coiReloadedBySelf", "notcontrolling");
-                    coi.doReload();
+                    reloadWhenActivated(registration.active, "notcontrolling");
                 }
             },
             (err) => {
