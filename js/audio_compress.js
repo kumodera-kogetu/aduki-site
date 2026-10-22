@@ -466,6 +466,7 @@ btnStart.addEventListener('click', async () => {
   
   if (shouldCancel) {
     log("処理が中止されました。");
+    renderTable(); // 「中止」にした残りの曲を表に反映する
   } else {
     log(`すべての処理が完了しました！（成功: ${successCount}曲）`, 'success');
     
