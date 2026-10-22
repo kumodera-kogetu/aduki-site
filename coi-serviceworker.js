@@ -1,8 +1,27 @@
 /*! coi-serviceworker v0.1.7 - Guido Zuidhof and contributors, licensed under MIT */
+// 妖孽奇譚サイトでの変更（2026-10-22）:
+// - 登録範囲を BGM圧縮ツールのページだけにする（下の register の scope 指定）
+// - 以前の「サイト全体（/）」の登録は、ページに手を加えずに自分で登録を解除する
+//   （サイト全体に COEP が付き、ブロック崩しの埋め込みが拒否されていたため）
 let coepCredentialless = false;
 if (typeof window === 'undefined') {
+    const isLegacyRootScope = new URL(self.registration.scope).pathname === "/";
+
     self.addEventListener("install", () => self.skipWaiting());
-    self.addEventListener("activate", (event) => event.waitUntil(self.clients.claim()));
+    self.addEventListener("activate", (event) => {
+        if (isLegacyRootScope) {
+            event.waitUntil(
+                self.registration
+                    .unregister()
+                    .then(() => self.clients.matchAll({ type: "window" }))
+                    .then(clients => {
+                        clients.forEach((client) => client.navigate(client.url).catch(() => {}));
+                    })
+            );
+            return;
+        }
+        event.waitUntil(self.clients.claim());
+    });
 
     self.addEventListener("message", (ev) => {
         if (!ev.data) {
@@ -22,6 +41,10 @@ if (typeof window === 'undefined') {
     });
 
     self.addEventListener("fetch", function (event) {
+        if (isLegacyRootScope) {
+            return;
+        }
+
         const r = event.request;
         if (r.cache === "only-if-cached" && r.mode !== "same-origin") {
             return;
@@ -121,7 +144,8 @@ if (typeof window === 'undefined') {
             return;
         }
 
-        n.serviceWorker.register(window.document.currentScript.src).then(
+        // 範囲を、このスクリプトを読み込んだページ（BGM圧縮ツール）だけにする
+        n.serviceWorker.register(window.document.currentScript.src, { scope: window.location.pathname }).then(
             (registration) => {
                 !coi.quiet && console.log("COOP/COEP Service Worker registered", registration.scope);
 
